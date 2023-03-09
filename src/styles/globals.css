@@ -1,3 +1,106 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .letters {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    stroke-width: 2px;
+    fill: url("#Gradient");
+    fill-opacity: 0;
+    animation: draw 0.8s ease-out forwards, fillPath ease-in 0.8s forwards;
+    animation-delay: calc(var(--order) * 100ms);
+  }
+
+  .boxStuff {
+    stroke-dasharray: 2900;
+    stroke-dashoffset: 2900;
+    stroke-width: 2px;
+    fill: url("#Gradient");
+    fill-opacity: 0;
+    animation: draw 0.8s ease-out forwards, fillPath ease-in 0.8s forwards;
+    animation-delay: calc(var(--order) * 150ms);
+  }
+
+  .mobileBoxStuff {
+    stroke-dasharray: 5000;
+    stroke-dashoffset: 5000;
+    stroke-width: 2px;
+    fill: url("#Gradient");
+    fill-opacity: 0;
+    animation: draw 2s ease-out forwards, fillPath ease-in 2s forwards;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 10;
+    }
+  }
+
+  @keyframes fillPath {
+    0% {
+      fill-opacity: 0;
+    }
+    50% {
+      fill-opacity: 0%;
+      stroke-opacity: 80%;
+    }
+    100% {
+      fill-opacity: 100%;
+      stroke-opacity: 0;
+    }
+  }
+
+  .lettersLight {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    stroke-width: 2px;
+    fill: url("#GradientLight");
+    fill-opacity: 0;
+    animation: draw 0.8s ease-out forwards, fillPathLight ease-in 0.8s forwards;
+    animation-delay: calc(var(--order) * 120ms);
+  }
+
+  .boxStuffLight {
+    stroke-dasharray: 2900;
+    stroke-dashoffset: 2900;
+    stroke-width: 2px;
+    fill: url("#GradientLight");
+    fill-opacity: 0;
+    animation: draw 0.8s ease-out forwards, fillPathLight ease-in 0.8s forwards;
+    animation-delay: calc(var(--order) * 150ms);
+  }
+
+  .mobileBoxStuffLight {
+    stroke-dasharray: 5000;
+    stroke-dashoffset: 5000;
+    stroke-width: 2px;
+    fill: url("#GradientLight");
+    fill-opacity: 0;
+    animation: draw 2s ease-out forwards, fillPathLight ease-in 2s forwards;
+  }
+
+  @keyframes fillPathLight {
+    0% {
+      fill-opacity: 0;
+    }
+    50% {
+      fill-opacity: 0%;
+      stroke-opacity: 80%;
+    }
+    100% {
+      fill-opacity: 100%;
+      stroke-opacity: 0;
+    }
+  }
+
+  .svg {
+    width: 100%;
+    height: 100%;
+  }
+}
