@@ -15,7 +15,9 @@ export const Navbar = () => {
           <div className="inline-flex items-center">
             <Tooltip text="Check out my Github!">
               <ButtonLink
-                icon={<GithubIcon />}
+                icon={
+                  <GithubIcon className="h-6 w-6 fill-black dark:fill-white" />
+                }
                 href={"https://github.com/KasperLuna"}
               />
             </Tooltip>

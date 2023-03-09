@@ -2,7 +2,6 @@ import { type SVGProps } from "react";
 
 export const GithubIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    className="h-6 w-6 fill-black dark:fill-white"
     aria-hidden="true"
     focusable="false"
     data-prefix="fab"

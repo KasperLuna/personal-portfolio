@@ -4,16 +4,18 @@ import { clsx } from "clsx";
 export const Tooltip = ({
   children,
   text,
+  delay,
 }: {
   children: JSX.Element;
   text: string;
+  delay?: number;
 }) => {
   return (
     <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root>
+      <TooltipPrimitive.Root delayDuration={delay ? delay : 250}>
         <TooltipPrimitive.Trigger>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Content
-          sideOffset={4}
+          //sideOffset={4}
           className={clsx(
             "radix-side-top:animate-slide-down-fade",
             "radix-side-right:animate-slide-left-fade",
