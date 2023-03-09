@@ -4,9 +4,10 @@ import { type ReactElement } from "react";
 export const ButtonLink = (props: {
   icon: ReactElement;
   href: string;
+  ariaLabel: string;
   className?: string;
 }) => {
-  const { icon, href, className } = props;
+  const { icon, href, className, ariaLabel } = props;
   return (
     <Link
       type="button"
@@ -14,7 +15,7 @@ export const ButtonLink = (props: {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      //If there's a className prop, use it, otherwise use the default className
+      aria-label={ariaLabel}
       className={
         className
           ? className

@@ -18,12 +18,14 @@ export const Navbar = () => {
                 icon={
                   <GithubIcon className="h-6 w-6 fill-black dark:fill-white" />
                 }
+                ariaLabel="Kasper's Github"
                 href={"https://github.com/KasperLuna"}
               />
             </Tooltip>
             <Tooltip text="Connect with me on LinkedIn!">
               <ButtonLink
                 icon={<LinkedInIcon />}
+                ariaLabel="Kasper's LinkedIn"
                 href={"https://www.linkedin.com/in/kasperluna/"}
               />
             </Tooltip>

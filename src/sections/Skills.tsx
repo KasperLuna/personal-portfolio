@@ -77,11 +77,6 @@ const BackendSkills = [
     icon: <ExpressIcon className="h-12 w-12 fill-black dark:fill-white" />,
     link: "https://expressjs.com",
   },
-  // {
-  //   title: "Nest.js",
-  //   icon: <SiNestjs color={"#e1244e"} size={60} />,
-  //   link: "https://nestjs.com",
-  // },
   {
     title: "PHP",
     icon: <PHPIcon className="h-12 w-12 fill-black dark:fill-white" />,
@@ -178,6 +173,7 @@ function SkillIcon(props: SkillProps) {
     <Tooltip text={props.title}>
       <ButtonLink
         icon={props.icon}
+        ariaLabel={`Link to ${props.title}`}
         href={props.link}
         className="m-2 inline-flex items-center rounded-full bg-slate-200 p-2.5 hover:bg-slate-400 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:bg-slate-800 dark:fill-black dark:hover:bg-slate-700 dark:focus:ring-gray-500"
       />
@@ -226,9 +222,9 @@ export default function Skills() {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
           Technical Skills
         </h1>
-        <h3 className="text-xl text-slate-900 dark:text-slate-100">
+        <h2 className="text-xl text-slate-900 dark:text-slate-100">
           Here&apos;s some of the tricks I&apos;ve picked up along the way.
-        </h3>
+        </h2>
       </div>
       {AllSkills.map((group) => {
         return (

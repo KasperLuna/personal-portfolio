@@ -59,7 +59,7 @@ export default function About() {
                     </div>
                     {feature.name}{" "}
                   </dt>
-                  <dd className="inline text-zinc-500">
+                  <dd className="inline text-slate-400">
                     {feature.description}
                   </dd>
                 </div>
