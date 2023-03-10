@@ -60,7 +60,7 @@ export default function About() {
                     </div>
                     {feature.name}{" "}
                   </dt>
-                  <dd className="inline text-slate-400">
+                  <dd className="inline text-slate-500 dark:text-slate-400">
                     {feature.description}
                   </dd>
                 </div>
