@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowIcon } from "~/assets/ArrowIcon";
 import { HatIcon } from "~/assets/HatIcon";
 import { PeopleIcon } from "~/assets/PeopleIcon";
 import { StackIcon } from "~/assets/StackIcon";
@@ -36,7 +37,7 @@ export default function About() {
       id="About"
       className="overflow-hidden bg-white py-11 dark:bg-slate-900"
     >
-      <div className="mx-auto max-w-7xl justify-center px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl justify-center px-6 pb-10 lg:px-8">
         <div className="mx-auto flex max-w-4xl flex-col-reverse justify-center gap-9 sm:max-w-2xl sm:flex-col-reverse lg:max-w-none lg:flex-row">
           <div className="lg:max-w-lg">
             <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
@@ -67,6 +68,15 @@ export default function About() {
             </dl>
           </div>
           <div
+            id="face"
+            className="hover:animate-scale active:animate-shrink animate-scale-loop-smooth
+             cursor-pointer select-none"
+            onMouseOver={() => {
+              const face = document.getElementById("face");
+              face?.classList.remove("animate-scale-loop-smooth");
+              const arrow = document.getElementById("arrow");
+              arrow?.classList.add("fade-out");
+            }}
             onMouseMove={(e) => {
               setYRotation(15 * ((e.nativeEvent.offsetX - width / 2) / width));
               setXRotation(
@@ -90,6 +100,13 @@ export default function About() {
               }}
               height={547}
             />
+
+            <div id={"arrow"}>
+              <ArrowIcon className=" absolute h-12 w-12 translate-x-[15rem] translate-y-2 transform fill-black dark:fill-white" />
+              <small className="absolute translate-x-[17rem] translate-y-1 rotate-[6deg] transform font-thin text-gray-900 dark:text-gray-300">
+                hover me!
+              </small>
+            </div>
           </div>
         </div>
       </div>
