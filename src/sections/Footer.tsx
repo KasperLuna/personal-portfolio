@@ -9,7 +9,7 @@ export const Links = ["About", "Skills", "Projects", "Contact"];
 
 export default function Footer() {
   return (
-    <nav className="justify-self-end border-gray-200 bg-white bg-transparent px-2 py-2.5">
+    <nav className="justify-self-end border-gray-200 bg-transparent px-2 py-2.5">
       <div className="container mx-auto flex flex-col flex-wrap items-center justify-between gap-3 sm:flex-row">
         <KasperBoxLogo className="w-40 fill-black dark:fill-white" />
         <h3 className="text-slate-600 dark:text-slate-200">
