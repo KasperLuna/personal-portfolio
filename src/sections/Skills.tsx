@@ -26,17 +26,17 @@ import { VercelIcon } from "~/assets/VercelIcon";
 const FrontendSkills = [
   {
     title: "HTML5",
-    icon: <HTMLIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <HTMLIcon className="h-12 w-12 fill-[#dd4b25]" />,
     link: "https://html.com/html5/",
   },
   {
     title: "CSS3",
-    icon: <CSSIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <CSSIcon className="h-12 w-12 fill-[#264de4]" />,
     link: "https://www.w3.org/Style/CSS/Overview.en.html",
   },
   {
     title: "React.js",
-    icon: <ReactIcon className="h-12 w-12 stroke-black dark:stroke-white" />,
+    icon: <ReactIcon className="h-12 w-12 stroke-[#61dafb]" />,
     link: "https://reactjs.org",
   },
   {
@@ -46,12 +46,12 @@ const FrontendSkills = [
   },
   {
     title: "Chakra UI",
-    icon: <ChakraUIIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <ChakraUIIcon className="h-12 w-12 fill-[#56c8c7]" />,
     link: "https://chakra-ui.com",
   },
   {
     title: "Material UI (MUI)",
-    icon: <MaterialUIIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <MaterialUIIcon className="h-12 w-12 fill-[#007fff]" />,
     link: "https://mui.com",
   },
   {
@@ -61,7 +61,7 @@ const FrontendSkills = [
   },
   {
     title: "Tailwind CSS",
-    icon: <TailwindIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <TailwindIcon className="h-12 w-12 fill-[#07B1CF]" />,
     link: "https://www.tailwindcss.com/",
   },
 ];
@@ -69,7 +69,7 @@ const FrontendSkills = [
 const BackendSkills = [
   {
     title: "Node.js",
-    icon: <NodeJsIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <NodeJsIcon className="h-12 w-12 fill-[#23b45d]" />,
     link: "https://nodejs.org/en/",
   },
   {
@@ -79,31 +79,27 @@ const BackendSkills = [
   },
   {
     title: "PHP",
-    icon: <PHPIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <PHPIcon className="h-12 w-12 fill-[#787cb4]" />,
     link: "https://www.php.net",
   },
   {
     title: "Redis",
-    icon: <RedisIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <RedisIcon className="h-12 w-12 fill-[#d82c20]" />,
     link: "https://redis.io",
   },
   {
     title: "PostgreSQL",
-    icon: (
-      <PostgresIcon className="h-12 w-12 fill-black stroke-1 dark:fill-white" />
-    ),
+    icon: <PostgresIcon className="h-12 w-12 fill-[#336791] stroke-1" />,
     link: "https://www.postgresql.org",
   },
   {
     title: "MySQL",
-    icon: (
-      <MySQLIcon className="h-12 w-12 fill-black stroke-1 dark:fill-white" />
-    ),
+    icon: <MySQLIcon className="h-12 w-12 fill-[#f57900] stroke-1" />,
     link: "https://www.mysql.com",
   },
   {
     title: "Firebase",
-    icon: <FirebaseIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <FirebaseIcon className="h-12 w-12 fill-[#4db33d]" />,
     link: "https://firebase.google.com",
   },
 ];
@@ -111,7 +107,7 @@ const BackendSkills = [
 const DeploymentSkills = [
   {
     title: "Git",
-    icon: <GitIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <GitIcon className="h-12 w-12 fill-[#f05033]" />,
     link: "https://git-scm.com",
   },
   {
@@ -121,12 +117,12 @@ const DeploymentSkills = [
   },
   {
     title: "Microsoft Azure",
-    icon: <AzureIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <AzureIcon className="h-12 w-12 fill-[#008ad7]" />,
     link: "https://azure.microsoft.com/en-us/",
   },
   {
     title: "Heroku",
-    icon: <HerokuIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <HerokuIcon className="h-12 w-12 fill-[#6762a5]" />,
     link: "https://www.heroku.com",
   },
   {
@@ -136,7 +132,7 @@ const DeploymentSkills = [
   },
   {
     title: "Netlify",
-    icon: <NetlifyIcon className="h-12 w-12 fill-black dark:fill-white" />,
+    icon: <NetlifyIcon className="h-12 w-12 fill-[#38aeba]" />,
     link: "https://www.netlify.com",
   },
   {
@@ -189,7 +185,7 @@ type SkilGroupProps = {
 function SkillGroup({ title, array }: SkilGroupProps) {
   return (
     <div>
-      <div className=" mt-5 w-fit rounded-xl border-2 border-white px-5 shadow-lg sm:w-auto md:min-w-[730px]">
+      <div className="mt-5 w-fit rounded-xl border border-slate-300 px-5  shadow-md dark:border-slate-200 sm:w-auto md:min-w-[730px]">
         <div className="flex flex-col">
           <h1 className="text-2xl font-semibold text-cyan-900 dark:text-cyan-400">
             {title}
