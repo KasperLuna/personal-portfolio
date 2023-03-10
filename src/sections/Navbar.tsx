@@ -7,7 +7,7 @@ import { DropdownMenu } from "~/components/DropdownMenu";
 
 export const Links = ["About", "Skills", "Projects", "Contact"];
 
-export const Navbar = () => {
+export default function Navbar() {
   return (
     <>
       <nav className="border-gray-200 bg-white px-2 py-2.5 dark:bg-gray-900 sm:px-4">
@@ -51,4 +51,4 @@ export const Navbar = () => {
       </nav>
     </>
   );
-};
+}
