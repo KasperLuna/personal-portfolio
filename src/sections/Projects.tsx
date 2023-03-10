@@ -183,7 +183,7 @@ export default function Projects() {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
           My Projects and Tools
         </h1>
-        <h2 className="text-xl text-slate-900 dark:text-slate-100">
+        <h2 className="text-xl text-gray-600 dark:text-gray-400">
           I&apos;ve worked on a few things, feel free to check my repositories!
         </h2>
       </div>

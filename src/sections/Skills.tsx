@@ -218,7 +218,7 @@ export default function Skills() {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
           Technical Skills
         </h1>
-        <h2 className="text-xl text-slate-900 dark:text-slate-100">
+        <h2 className="text-xl text-gray-600 dark:text-gray-400">
           Here&apos;s some of the tricks I&apos;ve picked up along the way.
         </h2>
       </div>

@@ -3,7 +3,7 @@ import { BannerHero, StackHero } from "~/assets/KasperLunaLogo";
 export default function Hero() {
   return (
     <div className="bg-white dark:bg-slate-900">
-      <div className="-z-9 pointer-events-none absolute inset-x-0 top-[-10rem] transform-gpu overflow-hidden blur-[70px] sm:top-[-20rem]">
+      <div className="pointer-events-none absolute inset-x-0 top-[-10rem] transform-gpu overflow-hidden blur-[70px] sm:top-[-20rem]">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
@@ -28,7 +28,7 @@ export default function Hero() {
           </defs>
         </svg>
       </div>
-      <div className="-z-9 pointer-events-none absolute  inset-x-0 top-[-10rem] transform-gpu overflow-hidden pt-[40rem] blur-[70px] sm:top-[-20rem] ">
+      <div className="pointer-events-none absolute inset-x-0  top-[-10rem] transform-gpu overflow-hidden pt-[40rem] blur-[70px] sm:top-[-20rem] ">
         <svg
           className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
