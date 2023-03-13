@@ -1,6 +1,6 @@
 //Logos
 import { CreateevLogo } from "~/assets/CreateevLogo";
-import { ThisSiteLogo } from "~/assets/ThisSiteLogo";
+import { KasperBoxLogo } from "~/assets/KasperBoxLogo";
 import { FundsLogo } from "~/assets/FundsLogo";
 import { ZeroTierLogo } from "~/assets/ZeroTierLogo";
 
@@ -37,7 +37,7 @@ const ProjectList: ProjectWrapperProps[] = [
     title: "This Site",
     tag: "Portfolio Site",
     image: (
-      <ThisSiteLogo className="h-[250px]  w-[250px] fill-black dark:fill-white" />
+      <KasperBoxLogo className="h-[250px]  w-[300px] fill-black dark:fill-white" />
     ),
     description:
       "An ongoing project currently using TailwindCSS for styling, RadixUI for accessibility, and Next.js. In the past, using ChakraUI and Framer motion.",
@@ -156,7 +156,7 @@ function ProjectWrapper(props: ProjectWrapperProps) {
         </h2>
         {props.image}
       </div>
-      <div className="flex max-h-[240px] min-h-[240px] flex-col items-center justify-between rounded-b-[55px] bg-slate-100 py-4 dark:bg-slate-700">
+      <div className="flex max-h-[240px] min-h-[240px] flex-col items-center justify-between rounded-b-[58px] bg-slate-100 py-4 dark:bg-slate-800">
         <div className="min-w-[200px] p-4">
           <p className=" text-slate-600 dark:text-slate-200">
             {props.description}
