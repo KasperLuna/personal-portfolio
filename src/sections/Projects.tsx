@@ -29,7 +29,6 @@ const ProjectList: ProjectWrapperProps[] = [
     description:
       "An ongoing project currently using Next.js with Firebase for backend operations and Mantine for styling. Meant to satisfy my own needs for a personal finance tracker",
     gitLink: "https://github.com/KasperLuna/Funds",
-    //openIcon: <ExternalLinkIcon />,
     openToolTip: "Open in new tab",
     openLink: "https://funds.kasperluna.com/",
   },
@@ -41,8 +40,7 @@ const ProjectList: ProjectWrapperProps[] = [
     ),
     description:
       "An ongoing project currently using TailwindCSS for styling, RadixUI for accessibility, and Next.js. In the past, using ChakraUI and Framer motion.",
-    gitLink: "https://github.com/KasperLuna/Next-Chakra-Portfolio",
-    //openIcon: <ExternalLinkIcon />,
+    gitLink: "https://github.com/KasperLuna/personal-portfolio",
     openToolTip: "Open in new tab",
     openLink: "https://kasperluna.com/",
   },
