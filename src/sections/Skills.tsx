@@ -212,7 +212,7 @@ export default function Skills() {
   return (
     <div
       id="Skills"
-      className="doodleBackground dark:doodleBackgroundDark flex flex-col place-items-center content-center overflow-hidden bg-auto bg-center px-5 pb-48 pt-40 text-center backdrop-filter dark:bg-slate-900 sm:px-5 md:px-10"
+      className="doodleBackground dark:doodleBackgroundDark flex flex-col place-items-center content-center overflow-hidden bg-auto bg-center px-5 pb-10 pt-1 text-center backdrop-filter dark:bg-slate-900 sm:px-5 md:px-10 md:pt-28 md:pb-32"
     >
       <div className="flex flex-col gap-4">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">

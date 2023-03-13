@@ -179,7 +179,7 @@ export default function Projects() {
       id={"Projects"}
       className="doodleBackground dark:doodleBackgroundDark flex flex-col bg-center pt-14 text-center dark:bg-slate-900"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 px-5">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
           My Projects and Tools
         </h1>
