@@ -144,7 +144,7 @@ type ProjectWrapperProps = {
 
 function ProjectWrapper(props: ProjectWrapperProps) {
   return (
-    <div className="animate-scale mx-2 mb-5 max-w-[350px] self-center rounded-[60px] border-2 border-solid border-black border-opacity-20 text-center shadow-lg backdrop-blur-lg dark:border-white dark:border-opacity-20">
+    <div className="animate-scale mx-2 mb-5 max-w-[350px] self-center rounded-3xl border-2 border-solid border-black border-opacity-20 text-center shadow-lg backdrop-blur-lg dark:border-white dark:border-opacity-20">
       <div className="flex flex-col items-center py-4 px-1">
         <h1 className="text-xl font-semibold text-slate-600 dark:text-slate-200">
           {props.title}
@@ -154,7 +154,7 @@ function ProjectWrapper(props: ProjectWrapperProps) {
         </h2>
         {props.image}
       </div>
-      <div className="flex max-h-[240px] min-h-[240px] flex-col items-center justify-between rounded-b-[58px] bg-slate-100 py-4 dark:bg-slate-800">
+      <div className="flex max-h-[240px] min-h-[240px] flex-col items-center justify-between rounded-b-3xl bg-slate-100 py-4 dark:bg-slate-800">
         <div className="min-w-[200px] p-4">
           <p className=" text-slate-600 dark:text-slate-200">
             {props.description}

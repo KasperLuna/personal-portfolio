@@ -185,7 +185,7 @@ type SkilGroupProps = {
 function SkillGroup({ title, array }: SkilGroupProps) {
   return (
     <div>
-      <div className="hover:animate-scale mt-5 w-fit rounded-xl border border-slate-300  px-5 shadow-md dark:border-slate-200 sm:w-auto md:min-w-[730px]">
+      <div className="hover:animate-scale mt-5 w-fit rounded-3xl border border-slate-300  px-5 shadow-md dark:border-white border-opacity-20 dark:border-opacity-20 sm:w-auto md:min-w-[730px]">
         <div className="flex flex-col">
           <h1 className="text-2xl font-semibold text-cyan-900 dark:text-cyan-400">
             {title}

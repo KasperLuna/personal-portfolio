@@ -63,9 +63,9 @@ export default function Contact() {
 
   const getClassName = () => {
     if (isSent) {
-      return "mt-5 w-full rounded-md bg-green-300 py-2 px-3 text-center font-semibold text-green-900";
+      return "mt-5 w-full rounded-3xl bg-green-300 py-2 px-3 text-center font-semibold text-green-900";
     } else if (isError || isFailed) {
-      return "mt-5 w-full rounded-md bg-red-300 p-2 text-center font-semibold text-red-900";
+      return "mt-5 w-full rounded-3xl bg-red-300 p-2 text-center font-semibold text-red-900";
     } else {
       return "hidden";
     }
@@ -176,7 +176,7 @@ export default function Contact() {
                   placeholder="johndoe@gmail.com"
                   onChange={resetError}
                   disabled={isSent}
-                  className="focus:ring-insetdark:bg-slate-800 block w-full rounded-md border-0 py-2 px-3.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="focus:ring-insetdark:bg-slate-800 block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-600 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function Contact() {
                   placeholder="John Doe"
                   onChange={resetError}
                   disabled={isSent}
-                  className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-3xl border-0 py-2 px-3.5 text-gray-600 dark:border-white dark:border-opacity-20 border-opacity-20 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function Contact() {
                   onChange={resetError}
                   disabled={isSent}
                   placeholder="Hi Kasper! I want to discuss a project with you."
-                  className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function Contact() {
               <button
                 disabled={isSubmitting}
                 type="submit"
-                className="flex w-full flex-row justify-between rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full flex-row justify-between rounded-3xl bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <div></div>
                 <p className="place-self-center">Send!</p>
