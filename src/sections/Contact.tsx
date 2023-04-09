@@ -91,7 +91,7 @@ export default function Contact() {
       id={"Contact"}
       className="relative isolate flex min-h-[90vh] flex-col justify-between gap-4 overflow-hidden bg-white px-6 dark:bg-slate-900"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-[-5rem] -z-10 transform-gpu overflow-hidden pl-[40rem] pt-[15vw] blur-[45px] sm:blur-[70px]">
+      <div className="pointer-events-none absolute inset-x-0 top-[-5rem] -z-10 transform-gpu overflow-hidden pl-[40rem] pt-[15vw] opacity-80 blur-[45px] sm:blur-[70px]">
         <svg
           className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2"
           viewBox="0 0 1155 678"
@@ -116,7 +116,7 @@ export default function Contact() {
           </defs>
         </svg>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 -z-10 transform-gpu overflow-hidden pt-[10rem] blur-[55px] sm:blur-[70px]">
+      <div className="pointer-events-none absolute inset-x-0 -z-10 transform-gpu overflow-hidden pt-[10rem] opacity-80 blur-[55px] sm:blur-[70px]">
         <svg
           className="relative  left-[calc(50%-30rem)] -z-10 h-[42.375rem] max-w-none -translate-x-1/2 rotate-[30deg]"
           viewBox="0 0 1155 678"
@@ -176,7 +176,7 @@ export default function Contact() {
                   placeholder="johndoe@gmail.com"
                   onChange={resetError}
                   disabled={isSent}
-                  className="focus:ring-insetdark:bg-slate-800 block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-600 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="focus:ring-insetdark:bg-slate-800 block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-600 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function Contact() {
                   placeholder="John Doe"
                   onChange={resetError}
                   disabled={isSent}
-                  className="block w-full rounded-3xl border-0 py-2 px-3.5 text-gray-600 dark:border-white dark:border-opacity-20 border-opacity-20 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-3xl border-0 py-2 px-3.5 text-gray-600 dark:border-white dark:border-opacity-20 border-opacity-20 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function Contact() {
                   onChange={resetError}
                   disabled={isSent}
                   placeholder="Hi Kasper! I want to discuss a project with you."
-                  className="block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-900 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>

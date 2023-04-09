@@ -144,7 +144,7 @@ type ProjectWrapperProps = {
 
 function ProjectWrapper(props: ProjectWrapperProps) {
   return (
-    <div className="animate-scale mx-2 mb-5 max-w-[350px] self-center rounded-3xl border-2 border-solid border-black border-opacity-20 text-center shadow-lg backdrop-blur-lg dark:border-white dark:border-opacity-20">
+    <div className="animate-scale mx-2 mb-5 max-w-[350px] self-center rounded-3xl border-2 border-solid border-slate-300 border-opacity-20 text-center shadow-md backdrop-blur-lg dark:border-white dark:border-opacity-20">
       <div className="flex flex-col items-center py-4 px-1">
         <h1 className="text-xl font-semibold text-slate-600 dark:text-slate-200">
           {props.title}
@@ -175,7 +175,7 @@ export default function Projects() {
   return (
     <div
       id={"Projects"}
-      className="doodleBackground dark:doodleBackgroundDark flex flex-col bg-center pt-14 text-center dark:bg-slate-900"
+      className="doodleBackground dark:doodleBackgroundDark flex flex-col bg-center bg-blur pt-14 text-center dark:bg-slate-900"
     >
       <div className="flex flex-col gap-4 px-5">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
