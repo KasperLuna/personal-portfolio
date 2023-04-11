@@ -10,8 +10,21 @@ import { ButtonLink } from "~/components/ButtonLink";
 import { GithubIcon } from "~/assets/GithubIcon";
 import { ExternalLinkIcon } from "~/assets/ExternalLinkIcon";
 import { ToothIcon } from "~/assets/ToothIcon";
+import { PlanningPokerLogo } from "~/assets/PlanningPokerLogo";
 
 const ProjectList: ProjectWrapperProps[] = [
+  {
+    title: "Planning Poker",
+    tag: "Planning Poker App",
+    image: (
+      <PlanningPokerLogo className="w-[250px] h-[250px]" />
+    ),
+    description:
+      "A planning poker app built with Tailwind, Next.js, and Firebase. I built this to help my team with our planning poker sessions. Enables our team to vote on tasks and see the results in real time.",
+    gitLink: "https://github.com/KasperLuna/planning-poker",
+    openToolTip: "Open in new tab",
+    openLink: "https://planning-poker.kasperluna.com/",
+  },
   {
     title: "ZeroTier Monitor",
     tag: "System Monitor",
