@@ -22,6 +22,7 @@ import { HerokuIcon } from "~/assets/HerokuIcon";
 import { GoogleCloudIcon } from "~/assets/GoogleCloudIcon";
 import { NetlifyIcon } from "~/assets/NetlifyIcon";
 import { VercelIcon } from "~/assets/VercelIcon";
+import { DockerIcon } from "~/assets/DockerIcon";
 
 const FrontendSkills = [
   {
@@ -114,6 +115,11 @@ const DeploymentSkills = [
     title: "Github",
     icon: <GithubIcon className="h-12 w-12 fill-black dark:fill-white" />,
     link: "https://github.com",
+  },
+  {
+    title: "Docker",
+    icon: <DockerIcon className="h-12 w-12 fill-[#2396ED]" />,
+    link: "https://www.docker.com",
   },
   {
     title: "Microsoft Azure",
