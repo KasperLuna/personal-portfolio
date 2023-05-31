@@ -179,4 +179,34 @@ html {
       opacity: 0;
     }
   }
+
+  @media (prefers-reduced-motion) {
+    .lettersLight {
+      animation: none;
+      fill: url("#GradientLight");
+      fill-opacity: 100%;
+    }
+
+    .letters {
+      animation: none;
+      fill: url("#Gradient");
+      fill-opacity: 100%;
+    }
+
+    .boxStuffLight {
+      animation: none;
+      fill: url("#GradientLight");
+      fill-opacity: 100%;
+    }
+
+    .boxStuff {
+      animation: none;
+      fill: url("#Gradient");
+      fill-opacity: 100%;
+    }
+
+    .animate-scale:hover {
+      animation: none;
+    }
+  }
 }
