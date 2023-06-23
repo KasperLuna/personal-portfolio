@@ -17,12 +17,12 @@ import { PostgresIcon } from "~/assets/PostgresIcon";
 import { MySQLIcon } from "~/assets/MySQLIcon";
 import { FirebaseIcon } from "~/assets/FirebaseIcon";
 import { GitIcon } from "~/assets/GitIcon";
-import { AzureIcon } from "~/assets/AzureIcon";
 import { HerokuIcon } from "~/assets/HerokuIcon";
 import { GoogleCloudIcon } from "~/assets/GoogleCloudIcon";
 import { NetlifyIcon } from "~/assets/NetlifyIcon";
 import { VercelIcon } from "~/assets/VercelIcon";
 import { DockerIcon } from "~/assets/DockerIcon";
+import { NginxIcon } from "~/assets/NginxIcon";
 
 const FrontendSkills = [
   {
@@ -122,9 +122,9 @@ const DeploymentSkills = [
     link: "https://www.docker.com",
   },
   {
-    title: "Microsoft Azure",
-    icon: <AzureIcon className="h-12 w-12 fill-[#008ad7]" />,
-    link: "https://azure.microsoft.com/en-us/",
+    title: "Nginx",
+    icon: <NginxIcon className="h-12 w-12 fill-[#019639]" />,
+    link: "https://www.nginx.com",
   },
   {
     title: "Heroku",
