@@ -137,6 +137,13 @@ html {
     animation-timing-function: ease-out;
   }
 
+  .animate-scale:focus-within {
+    animation-name: scale;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+
   .animate-shrink:active {
     animation-name: shrink;
     animation-duration: 0.2s;
