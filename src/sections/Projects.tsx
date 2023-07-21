@@ -10,8 +10,18 @@ import { ButtonLink } from "~/components/ButtonLink";
 import { GithubIcon } from "~/assets/GithubIcon";
 import { ExternalLinkIcon } from "~/assets/ExternalLinkIcon";
 import { ToothIcon } from "~/assets/ToothIcon";
+import { UliLogo } from "~/assets/UliLogo";
 
 const ProjectList: ProjectWrapperProps[] = [
+  {
+    title: "Order Uli",
+    tag: "Meal Plan System",
+    image: <UliLogo className="w-[250px] h-[250px]  fill-black dark:fill-white" />,
+    description:
+      "Developed complete solution for the Order Uli meal planner system. Utilizing Next.js, Firebase, and Cloudinary to serve a meal plan system for a local business.",
+    openToolTip: "Open in new tab",
+    openLink: "https://orderuli.com/",
+  },
   {
     title: "ZeroTier Monitor",
     tag: "System Monitor",
@@ -27,7 +37,7 @@ const ProjectList: ProjectWrapperProps[] = [
       <FundsLogo className="h-[250px] w-[250px] fill-black dark:fill-white" />
     ),
     description:
-      "An ongoing project currently using Next.js with Firebase for backend operations and Mantine for styling. Meant to satisfy my own needs for a personal finance tracker",
+      "A finance tracker PWA utilizing Next.js with Firebase for backend operations and Mantine for styling. Meant to satisfy my own needs for a personal finance tracker",
     gitLink: "https://github.com/KasperLuna/Funds",
     openToolTip: "Open in new tab",
     openLink: "https://funds.kasperluna.com/",
