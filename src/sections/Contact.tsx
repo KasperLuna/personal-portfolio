@@ -32,6 +32,12 @@ export default function Contact() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
+    if (!formData.get("cf-turnstile-response")) {
+      setStatus("error");
+      setIsSubmitting(false);
+      return;
+    }
+
     const data: ContactFormData = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
