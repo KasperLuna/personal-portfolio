@@ -169,7 +169,7 @@ export default function Contact() {
                   id="email"
                   autoComplete="email"
                   placeholder="johndoe@gmail.com"
-                  // onChange={resetError}
+                  required
                   disabled={status === "success"}
                   className="focus:ring-insetdark:bg-slate-800 block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-600 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
@@ -189,7 +189,7 @@ export default function Contact() {
                   id="name"
                   autoComplete="given-name"
                   placeholder="John Doe"
-                  // onChange={resetError}
+                  required
                   disabled={status === "success"}
                   className="block w-full rounded-3xl border-0 py-2 px-3.5 text-gray-600 dark:border-white dark:border-opacity-20 border-opacity-20 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
@@ -208,7 +208,7 @@ export default function Contact() {
                   name="message"
                   id="message"
                   rows={3}
-                  // onChange={resetError}
+                  required
                   disabled={status === "success"}
                   placeholder="Hi Kasper! I want to discuss a project with you."
                   className="block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-900 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
