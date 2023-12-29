@@ -220,7 +220,10 @@ export default function Contact() {
                 />
               </div>
             </div>
+
+            <div className="cf-turnstile sm:col-span-2" data-sitekey="0x4AAAAAAAPPF8PcwJi6_xXn"></div>
           </div>
+
           <div className="mt-10">
             {!isSent && (
               <button
