@@ -164,7 +164,6 @@ const AllSkills = [
 ];
 
 type SkillProps = {
-  key?: string;
   title: string;
   icon: JSX.Element;
   link: string;

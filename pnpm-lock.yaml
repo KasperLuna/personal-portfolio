@@ -6,6 +6,7 @@ specifiers:
   '@radix-ui/react-tooltip': ^1.0.4
   '@types/eslint': ^8.21.1
   '@types/node': 20.8.7
+  '@types/nodemailer': ^6.4.13
   '@types/prettier': 3.0.0
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
@@ -16,6 +17,7 @@ specifiers:
   eslint: ^8.34.0
   eslint-config-next: ^13.2.1
   next: ^13.2.1
+  nodemailer: ^6.9.7
   postcss: ^8.4.14
   prettier: 3.0.3
   prettier-plugin-tailwindcss: 0.5.6
@@ -31,6 +33,7 @@ dependencies:
   '@radix-ui/react-tooltip': 1.0.5_cd160f55359eec37085c65857803cdca
   clsx: 2.0.0
   next: 13.2.4_react-dom@18.2.0+react@18.2.0
+  nodemailer: 6.9.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   zod: 3.21.4
@@ -38,6 +41,7 @@ dependencies:
 devDependencies:
   '@types/eslint': 8.21.1
   '@types/node': 20.8.7
+  '@types/nodemailer': 6.4.13
   '@types/prettier': 3.0.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -717,6 +721,12 @@ packages:
     resolution: {integrity: sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==}
     dependencies:
       undici-types: 5.25.3
+    dev: true
+
+  /@types/nodemailer/6.4.13:
+    resolution: {integrity: sha512-889Vq/77eEpidCwh52sVWpbnqQmIwL8yVBekNbrztVEaWKOCRH3Eq6hjIJh1jwsGDEAJEH0RR+YhpH9mfELLKA==}
+    dependencies:
+      '@types/node': 20.8.7
     dev: true
 
   /@types/prettier/3.0.0:
@@ -2378,6 +2388,11 @@ packages:
   /node-releases/2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
     dev: true
+
+  /nodemailer/6.9.7:
+    resolution: {integrity: sha512-rUtR77ksqex/eZRLmQ21LKVH5nAAsVicAtAYudK7JgwenEDZ0UIQ1adUGqErz7sMkWYxWTTU1aeP2Jga6WQyJw==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}

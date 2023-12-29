@@ -1,21 +1,30 @@
 import Link from "next/link";
+import Script from 'next/script'
 import { useState, type FormEvent } from "react";
 import { Spinner } from "~/assets/Spinner";
 import Footer from "./Footer";
+import { type ContactFormData } from "~/constants";
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
+type RenderParameters = {
+  sitekey: string
+  theme?: 'light' | 'dark'
+  callback?(token: string): void
 }
 
-export default function Contact() {
-  const [isSent, setIsSent] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isFailed, setIsFailed] = useState(false);
+declare global {
+  interface Window {
+    onloadTurnstileCallback(): void
+    turnstile: {
+      render(container: string | HTMLElement, params: RenderParameters): void
+    }
+  }
+}
 
-  const resetError = () => setIsError(false);
+
+
+export default function Contact() {
+  const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
@@ -23,74 +32,60 @@ export default function Contact() {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
 
-    const data: FormData = {
+    const data: ContactFormData = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       message: formData.get("message") as string,
+      "cf-turnstile-response": formData.get("cf-turnstile-response") as string,
     };
 
-    if (!data.name || !data.email || !data.message) {
-      setIsError(true);
-      setIsSubmitting(false);
-      return;
-    }
-    const Body = JSON.stringify({
-      access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-      ...data,
-    });
-    void fetch("https://api.web3forms.com/submit", {
+    void fetch("/api/contact-form", {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: Body,
+      body: JSON.stringify(data),
     })
       .then((response) => {
-        if (Boolean(response.ok)) {
-          setIsSent(true);
-        } else {
-          setIsFailed(false);
-        }
+        if (!response.ok) throw new Error("Error sending message");
+        setStatus("success");
       })
       .catch(() => {
-        setIsFailed(true);
+        setStatus("error");
       })
       .finally(() => {
         setIsSubmitting(false);
       });
   };
 
-  const getClassName = () => {
-    if (isSent) {
-      return "mt-5 w-full rounded-3xl bg-green-300 py-2 px-3 text-center font-semibold text-green-900";
-    } else if (isError || isFailed) {
-      return "mt-5 w-full rounded-3xl bg-red-300 p-2 text-center font-semibold text-red-900";
-    } else {
-      return "hidden";
-    }
-  };
+  const className = {
+    idle: "hidden",
+    error: "mt-5 w-full rounded-3xl bg-red-300 p-2 text-center font-semibold text-red-900",
+    success: "mt-5 w-full rounded-3xl bg-green-300 py-2 px-3 text-center font-semibold text-green-900",
+  }[status];
 
-  const getMessage = () => {
-    if (isSent) {
-      return "Message sent! I'll try my best to get back to you as soon as possible :) Have a Great Day!";
-    } else if (isError) {
-      return "Please make sure everything is filled properly and try again!";
-    } else if (isFailed) {
-      return "An unknown error occurred. Sorry about that! Please contact me via email if this does not resolve on its own.";
-    } else {
-      return "";
-    }
-  };
+  const message = {
+    idle: "",
+    error: "Something went wrong. Please try again later.",
+    success: "Message sent! I'll try my best to get back to you as soon as possible :) Have a Great Day!",
+  }[status];
 
-  const className = getClassName();
-  const message = getMessage();
 
   return (
     <div
       id={"Contact"}
       className="relative isolate flex min-h-[90vh] flex-col justify-between gap-4 overflow-hidden bg-white px-6 dark:bg-slate-900"
     >
+      {/* Cloudflare Turnstile Scripts */}
+      <Script id="cf-turnstile-callback">
+        {`window.onloadTurnstileCallback = function () {
+          window.turnstile.render('#my-widget', {
+            sitekey: '${process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}',
+          })
+        }`}
+      </Script>
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
+        async={true}
+        defer={true}
+      />
       <div className="pointer-events-none absolute inset-x-0 top-[-5rem] -z-10 transform-gpu overflow-hidden pl-[40rem] pt-[15vw] opacity-80 blur-[45px] sm:blur-[70px]">
         <svg
           className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2"
@@ -174,8 +169,8 @@ export default function Contact() {
                   id="email"
                   autoComplete="email"
                   placeholder="johndoe@gmail.com"
-                  onChange={resetError}
-                  disabled={isSent}
+                  // onChange={resetError}
+                  disabled={status === "success"}
                   className="focus:ring-insetdark:bg-slate-800 block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-600 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -194,8 +189,8 @@ export default function Contact() {
                   id="name"
                   autoComplete="given-name"
                   placeholder="John Doe"
-                  onChange={resetError}
-                  disabled={isSent}
+                  // onChange={resetError}
+                  disabled={status === "success"}
                   className="block w-full rounded-3xl border-0 py-2 px-3.5 text-gray-600 dark:border-white dark:border-opacity-20 border-opacity-20 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -213,19 +208,22 @@ export default function Contact() {
                   name="message"
                   id="message"
                   rows={3}
-                  onChange={resetError}
-                  disabled={isSent}
+                  // onChange={resetError}
+                  disabled={status === "success"}
                   placeholder="Hi Kasper! I want to discuss a project with you."
                   className="block w-full rounded-3xl border-0 dark:border-white dark:border-opacity-20 border-opacity-20 py-2 px-3.5 text-gray-900 shadow-md ring-1 ring-inset ring-white ring-opacity-20 placeholder:text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-slate-800 dark:text-gray-400 dark:placeholder:text-gray-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="cf-turnstile sm:col-span-2" data-sitekey="0x4AAAAAAAPPF8PcwJi6_xXn"></div>
+            <div className="flex sm:col-span-2 items-center justify-center">
+              <div id={"my-widget"} className="cf-turnstile min-h-[70px]" data-sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY} />
+            </div>
+
           </div>
 
           <div className="mt-10">
-            {!isSent && (
+            {status == "idle" && (
               <button
                 disabled={isSubmitting}
                 type="submit"
