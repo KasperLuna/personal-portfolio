@@ -44,7 +44,7 @@ export default async function Handler(
 
   const mailContents: SendMailOptions = {
     from: "mail@kasperluna.com",
-    to: "mail@kasperluna.com",
+    to: "luna.kasper.f@gmail.com",
     subject: `Portfolio Site Submission from ${body.name}`,
     text: `Name: ${body.name}\nEmail: ${body.email}\nMessage: ${body.message}`,
     html: `<p>Name: ${body.name}</p><p>Email: ${body.email}</p><p>Message: ${body.message}</p>`,
