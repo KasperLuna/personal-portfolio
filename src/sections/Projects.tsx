@@ -3,8 +3,6 @@ import { CreateevLogo } from "~/assets/CreateevLogo";
 import { KasperBoxLogo } from "~/assets/KasperBoxLogo";
 import { FundsLogo } from "~/assets/FundsLogo";
 import { ZeroTierLogo } from "~/assets/ZeroTierLogo";
-
-import Image from "next/image";
 import { Tooltip } from "~/components/Tooltip";
 import { ButtonLink } from "~/components/ButtonLink";
 import { GithubIcon } from "~/assets/GithubIcon";
@@ -70,23 +68,6 @@ const ProjectList: ProjectWrapperProps[] = [
     ),
     description:
       "Developed backend processes for the Pain Care System, utilizing Node.js, Express.js, and PostgreSQL to serve templated pages used for dental record management.",
-  },
-  {
-    title: "Dealcrafter",
-    tag: "Internal Inventory Management",
-    image: (
-      <div className="h-[250px] w-[250px]">
-        <Image
-          alt={"Dealcrafter"}
-          src="/dealcrafter.webp"
-          width={280}
-          height={280}
-        />
-      </div>
-    ),
-    description:
-      "Developed backend processes for the internal Dealcrafter site, utilizing Node.js, Express.js, PostgreSQL, and Redis to serve templated pages used for inventory management.",
-    gitLink: "https://github.com/KasperLuna/Dealcrafter",
   },
   {
     title: "Createev",
