@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { Tooltip } from "@/components/ui/tooltip"
@@ -79,7 +80,14 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                                         >
                                             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg dark:bg-slate-800">
                                                 {skill.icon ? (
-                                                    <img src={skill.icon} alt={skill.name} className="h-8 w-8 object-contain" />
+                                                    <Image
+                                                        src={skill.icon}
+                                                        alt={skill.name}
+                                                        width={32}
+                                                        height={32}
+                                                        className="h-8 w-8 object-contain"
+                                                        unoptimized
+                                                    />
                                                 ) : (
                                                     <span className="h-8 w-8" />
                                                 )}
