@@ -3,11 +3,18 @@
 import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { useTheme } from "next-themes"
-import * as THREE from "three"
 
 function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDarkMode?: boolean }) {
-  const mesh = useRef<THREE.Points>(null)
-  const light = useRef<THREE.PointLight>(null)
+  const mesh = useRef<{
+    rotation: { x: number; y: number; z: number }
+    position: { x: number; y: number; z: number }
+  }>(null)
+  const light = useRef<{
+    position: { x: number; y: number; z: number }
+    intensity: number
+    distance: number
+    color: string
+  }>(null)
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const targetMouse = useRef({ x: 0, y: 0 })
 
@@ -41,8 +48,8 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
 
     // Smoothly interpolate mouse position
     setMouse((prevMouse) => ({
-      x: THREE.MathUtils.lerp(prevMouse.x, targetMouse.current.x, damping),
-      y: THREE.MathUtils.lerp(prevMouse.y, targetMouse.current.y, damping),
+      x: prevMouse.x + (targetMouse.current.x - prevMouse.x) * damping,
+      y: prevMouse.y + (targetMouse.current.y - prevMouse.y) * damping,
     }))
 
     if (mesh.current) {
@@ -59,7 +66,7 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
 
   return (
     <>
-      <pointLight ref={light} distance={10} intensity={5} color={isDarkMode ? "#8b5cf6" : "#a78bfa"} />
+      {/* <pointLight ref={light} distance={1} intensity={5} color={isDarkMode ? "#8b5cf6" : "#a78bfa"} /> */}
       <points ref={mesh}>
         <bufferGeometry>
           <bufferAttribute
@@ -67,12 +74,14 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
             count={particlesPosition.length / 3}
             array={particlesPosition}
             itemSize={3}
+            args={[] as any}
           />
           <bufferAttribute
             attach="attributes-scale"
             count={particlesScale.length}
             array={particlesScale}
             itemSize={1}
+            args={[] as any}
           />
         </bufferGeometry>
         <pointsMaterial
@@ -80,7 +89,7 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
           color={isDarkMode ? "#8b5cf6" : "#a78bfa"}
           sizeAttenuation
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+        // blending="additive"
         />
       </points>
     </>

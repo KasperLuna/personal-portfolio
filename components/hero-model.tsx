@@ -2,13 +2,14 @@
 
 import { useRef } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { useGLTF, Float, Environment, ContactShadows } from "@react-three/drei"
-import type { Group } from "three"
+import { Float, Environment, ContactShadows } from "@react-three/drei"
 import { useTheme } from "next-themes"
 
 function Model({ isDarkMode }: { isDarkMode: boolean }) {
-  const group = useRef<Group>(null)
-  // const { nodes } = useGLTF("/models/abstract_shape.glb") as any
+  const group = useRef<{
+    rotation: { x: number; y: number; z: number }
+    position: { x: number; y: number; z: number }
+  }>(null)
   const { viewport } = useThree()
 
   useFrame((state) => {
@@ -22,14 +23,7 @@ function Model({ isDarkMode }: { isDarkMode: boolean }) {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <group ref={group} dispose={null} scale={viewport.width > 768 ? 2 : 1.5}>
-        {/* <mesh geometry={nodes.Cube.geometry} position={[0, 0, 0]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-          <meshStandardMaterial
-            color={isDarkMode ? "#8b5cf6" : "#a78bfa"}
-            roughness={0.5}
-            metalness={0.8}
-            envMapIntensity={0.8}
-          />
-        </mesh> */}
+        {/* Placeholder for 3D model */}
       </group>
     </Float>
   )

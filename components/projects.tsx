@@ -46,7 +46,7 @@ const projects = [
     image: "/images/portfolio-project.png",
     gitLink: "https://github.com/KasperLuna/personal-portfolio",
     openLink: "https://kasperluna.com/",
-    technologies: ["Next.js", "TailwindCSS", "Framer Motion", "Three.js"],
+    technologies: ["Next.js", "TailwindCSS", "Framer Motion"],
   },
   {
     title: "Pain Care",
