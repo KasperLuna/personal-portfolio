@@ -19,7 +19,6 @@ import {
   Layers,
   Cpu,
 } from "lucide-react"
-import { TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
 
 const skillCategories = [
   {

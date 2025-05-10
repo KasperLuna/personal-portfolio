@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
-import { JSX } from "react"
+import type { JSX } from "react"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function BannerHero(): JSX.Element {

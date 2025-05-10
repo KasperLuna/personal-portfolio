@@ -70,18 +70,20 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
       <points ref={mesh}>
         <bufferGeometry>
           <bufferAttribute
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+            args={[] as any}
             attach="attributes-position"
             count={particlesPosition.length / 3}
             array={particlesPosition}
             itemSize={3}
-            args={[] as any}
           />
           <bufferAttribute
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+            args={[] as any}
             attach="attributes-scale"
             count={particlesScale.length}
             array={particlesScale}
             itemSize={1}
-            args={[] as any}
           />
         </bufferGeometry>
         <pointsMaterial

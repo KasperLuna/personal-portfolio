@@ -3,9 +3,8 @@
 import { useRef } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Float, Environment, ContactShadows } from "@react-three/drei"
-import { useTheme } from "next-themes"
 
-function Model({ isDarkMode }: { isDarkMode: boolean }) {
+function Model() {
   const group = useRef<{
     rotation: { x: number; y: number; z: number }
     position: { x: number; y: number; z: number }
@@ -30,14 +29,11 @@ function Model({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 export default function HeroModel() {
-  const { resolvedTheme } = useTheme()
-  const isDarkMode = resolvedTheme === "dark"
-
   return (
     <Canvas shadows camera={{ position: [0, 0, 10], fov: 25 }}>
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      <Model isDarkMode={isDarkMode} />
+      <Model />
       <Environment preset="city" />
       <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={20} blur={1.5} far={4.5} />
     </Canvas>

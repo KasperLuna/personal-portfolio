@@ -72,7 +72,7 @@ export default function Contact() {
       } else {
         throw new Error("Failed to send message")
       }
-    } catch (error) {
+    } catch {
       toast({
         title: "Something went wrong",
         description: "Please try again later or contact me directly via email.",
@@ -114,7 +114,7 @@ export default function Contact() {
             <motion.div variants={itemVariants}>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Contact Information</h3>
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">
-                I'm currently open to freelance opportunities and collaborations. Feel free to reach out if you have a
+                I&apos;m currently open to freelance opportunities and collaborations. Feel free to reach out if you have a
                 project in mind or just want to connect!
               </p>
 
@@ -161,7 +161,7 @@ export default function Contact() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={void handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
