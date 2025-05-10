@@ -46,14 +46,14 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
     }))
 
     if (mesh.current) {
-      mesh.current.rotation.x = Math.sin(time / 4) - mouse.y * 0.2 // Inverted effect
-      mesh.current.rotation.y = Math.sin(time / 2) - mouse.x * 0.2 // Inverted effect
+      mesh.current.rotation.x = Math.sin(time / 4) + mouse.y * 0.2
+      mesh.current.rotation.y = Math.sin(time / 2) + mouse.x * 0.2
     }
 
     if (light.current) {
-      light.current.position.x = Math.sin(time) * 3 - mouse.x * 1.5 // Inverted effect
+      light.current.position.x = Math.sin(time) * 3 + mouse.x * 1.5
       light.current.position.z = Math.cos(time) * 3
-      light.current.position.y = Math.sin(time) * 2 - mouse.y * 1.5 // Inverted effect
+      light.current.position.y = Math.sin(time) * 2 + mouse.y * 1.5
     }
   })
 
