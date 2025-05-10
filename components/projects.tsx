@@ -5,67 +5,11 @@ import { motion, useInView } from "framer-motion"
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
 import useEmblaCarousel from "embla-carousel-react"
+import { fetchProjects } from "@/lib/contentful"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-
-const projects = [
-  {
-    title: "Order Uli",
-    tag: "Meal Plan System",
-    description:
-      "Developed complete solution for the Order Uli meal planner system. Utilizing Next.js, Firebase, and Cloudinary to serve a meal plan system for a local business.",
-    image: "/images/uli-project.png",
-    openLink: "https://orderuli.com/",
-    technologies: ["Next.js", "Firebase", "Cloudinary"],
-  },
-  {
-    title: "ZeroTier Monitor",
-    tag: "System Monitor",
-    description:
-      "A simple monitor using the ZeroTier API to track network node statuses. As Zerotier is always enabled in my machines, I can simply identify status in the browser. Built with Next.js.",
-    image: "/images/zerotier-project.png",
-    gitLink: "https://github.com/KasperLuna/zerotierapi-next",
-    technologies: ["Next.js", "ZeroTier API", "TailwindCSS"],
-  },
-  {
-    title: "Funds",
-    tag: "Finance Tracker",
-    description:
-      "A finance tracker PWA utilizing Next.js with Firebase for backend operations and Mantine for styling. Meant to satisfy my own needs for a personal finance tracker",
-    image: "/images/funds-project.png",
-    gitLink: "https://github.com/KasperLuna/Funds",
-    openLink: "https://funds.kasperluna.com/",
-    technologies: ["Next.js", "Firebase", "Mantine UI"],
-  },
-  {
-    title: "This Site",
-    tag: "Portfolio Site",
-    description:
-      "An ongoing project currently using TailwindCSS for styling, RadixUI for accessibility, and Next.js. In the past, using ChakraUI and Framer motion.",
-    image: "/images/portfolio-project.png",
-    gitLink: "https://github.com/KasperLuna/personal-portfolio",
-    openLink: "https://kasperluna.com/",
-    technologies: ["Next.js", "TailwindCSS", "Framer Motion"],
-  },
-  {
-    title: "Pain Care",
-    tag: "Dental Record Management System",
-    description:
-      "Developed backend processes for the Pain Care System, utilizing Node.js, Express.js, and PostgreSQL to serve templated pages used for dental record management.",
-    image: "/images/dental-project.png",
-    technologies: ["Node.js", "Express.js", "PostgreSQL"],
-  },
-  {
-    title: "Createev",
-    tag: "e-Commerce Concept Site",
-    description:
-      "Developed backend processes for the Createev e-commerce concept site. Utilizing Node.js, Express.js and a MySQL database to serve templated pages for e-commerce.",
-    image: "/images/ecommerce-project.png",
-    gitLink: "https://github.com/KasperLuna/Createev-Concept",
-    technologies: ["Node.js", "Express.js", "MySQL"],
-  },
-]
+import { useTheme } from "next-themes"
 
 export default function Projects() {
   const ref = useRef<HTMLDivElement>(null)
@@ -73,7 +17,13 @@ export default function Projects() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "center", skipSnaps: false, loop: true })
   const [selectedIndex, setSelectedIndex] = useState(0)
   const autoplayRef = useRef<NodeJS.Timeout | null>(null)
+  const [projects, setProjects] = useState<any[]>([])
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === "dark"
 
+  useEffect(() => {
+    fetchProjects().then(setProjects)
+  }, [])
 
   // Embla: keep selectedIndex in sync with Embla's selected snap
   useEffect(() => {
@@ -139,19 +89,30 @@ export default function Projects() {
                     }}
                   >
                     <Card className="group h-full max-w-[350px] mx-auto overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 dark:bg-slate-800/50 dark:hover:bg-slate-800">
-                      <div className="relative h-48 w-full overflow-hidden">
+                      <div className="relative w-full aspect-[7/4] overflow-hidden">
                         <Image
-                          src={project.image || "/placeholder.svg?height=200&width=400"}
+                          src={project.displayImage || "/placeholder.svg?height=200&width=400"}
                           alt={project.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="p-4 object-contain transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 350px) 100vw, 350px"
+                          priority={index === 0}
+                          style={
+                            project.displayImage?.endsWith('.svg')
+                              ? {
+                                filter: isDark
+                                  ? "brightness(0) saturate(100%) invert(1)" // white fill in dark mode
+                                  : "brightness(0) saturate(100%)",           // black fill in light mode
+                              }
+                              : undefined
+                          }
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                         <div className="absolute bottom-0 left-0 right-0 flex justify-end gap-2 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                          {project.gitLink && (
+                          {project.codeUrl && (
                             <Button size="icon" variant="secondary" asChild>
                               <a
-                                href={project.gitLink}
+                                href={project.codeUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="GitHub Repository"
@@ -160,9 +121,9 @@ export default function Projects() {
                               </a>
                             </Button>
                           )}
-                          {project.openLink && (
+                          {project.projectUrl && (
                             <Button size="icon" variant="secondary" asChild>
-                              <a href={project.openLink} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
+                              <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
                                 <ExternalLink className="h-5 w-5" />
                               </a>
                             </Button>
@@ -171,14 +132,14 @@ export default function Projects() {
                       </div>
                       <CardHeader>
                         <CardTitle>{project.title}</CardTitle>
-                        <CardDescription>{project.tag}</CardDescription>
+                        {/* Optionally display a tag if you add it to Contentful */}
                       </CardHeader>
                       <CardContent>
                         <p className="text-sm text-slate-600 dark:text-slate-300">{project.description}</p>
                       </CardContent>
                       <CardFooter>
                         <div className="flex flex-wrap gap-2">
-                          {(Array.isArray(project.technologies) ? project.technologies : []).map((tech) => (
+                          {(Array.isArray(project.techStack) ? project.techStack : []).map((tech: string) => (
                             <span
                               key={tech}
                               className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
