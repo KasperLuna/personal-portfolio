@@ -68,16 +68,16 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
         },
     }
 
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                duration: 0.5,
-            },
-        },
-    }
+    // const itemVariants = {
+    //     hidden: { y: 20, opacity: 0 },
+    //     visible: {
+    //         y: 0,
+    //         opacity: 1,
+    //         transition: {
+    //             duration: 0.5,
+    //         },
+    //     },
+    // }
 
     return (
         <motion.div
