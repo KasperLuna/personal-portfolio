@@ -178,7 +178,7 @@ export default function Projects() {
                       </CardContent>
                       <CardFooter>
                         <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech) => (
+                          {(Array.isArray(project.technologies) ? project.technologies : []).map((tech) => (
                             <span
                               key={tech}
                               className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
