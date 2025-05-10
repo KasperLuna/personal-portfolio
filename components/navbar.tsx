@@ -55,7 +55,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-6 md:flex">
           <nav className="flex items-center gap-1">
-            {navLinks.map((link) => (
+            {(Array.isArray(navLinks) ? navLinks : []).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -121,7 +121,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
+              {(Array.isArray(navLinks) ? navLinks : []).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

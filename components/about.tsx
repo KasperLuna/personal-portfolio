@@ -71,7 +71,7 @@ export default function About() {
               Systems at the University of Santo Tomas.
             </p>
             <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
-              {features.map((feature) => (
+              {(Array.isArray(features) ? features : []).map((feature) => (
                 <motion.div key={feature.name} className="relative pl-12" variants={itemVariants}>
                   <dt className="inline font-semibold text-gray-900 dark:text-gray-300">
                     <feature.icon className="absolute left-0 top-1 h-6 w-6 text-purple-600" aria-hidden="true" />

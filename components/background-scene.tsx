@@ -73,7 +73,7 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
             args={[] as any}
             attach="attributes-position"
-            count={particlesPosition.length / 3}
+            count={Array.isArray(particlesPosition) || particlesPosition instanceof Float32Array ? particlesPosition.length / 3 : 0}
             array={particlesPosition}
             itemSize={3}
           />
@@ -81,7 +81,7 @@ function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDar
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
             args={[] as any}
             attach="attributes-scale"
-            count={particlesScale.length}
+            count={Array.isArray(particlesScale) || particlesScale instanceof Float32Array ? particlesScale.length : 0}
             array={particlesScale}
             itemSize={1}
           />

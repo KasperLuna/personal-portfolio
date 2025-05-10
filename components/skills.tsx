@@ -104,13 +104,12 @@ export default function Skills() {
         </div>
 
         <div className="mx-auto mt-16 max-w-7xl">
-          {skillCategories.map((category) => (
+          {(Array.isArray(skillCategories) ? skillCategories : []).map((category) => (
             <motion.div key={category.title} className="mb-16" variants={itemVariants}>
               <h3 className="mb-8 text-2xl font-semibold text-purple-600 dark:text-purple-400">{category.title}</h3>
               <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-6">
-                {category.skills.map((skill) => (
+                {(Array.isArray(category.skills) ? category.skills : []).map((skill) => (
                   <Tooltip key={skill.name} text={skill.name}>
-
                     <motion.div
                       className="flex flex-col items-center justify-center"
                       variants={itemVariants}
