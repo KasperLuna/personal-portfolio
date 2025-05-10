@@ -29,6 +29,7 @@ export interface Skill {
 
 export async function fetchProjects(): Promise<Project[]> {
   const entries = await client.getEntries({ content_type: 'portfolioProject' });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
   return entries.items.map((item: any) => {
     const fields = item.fields;
     return {
@@ -44,6 +45,7 @@ export async function fetchProjects(): Promise<Project[]> {
 
 export async function fetchSkills(): Promise<Skill[]> {
   const entries = await client.getEntries({ content_type: 'portfolioSkill' });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
   return entries.items.map((item: any) => {
     const fields = item.fields;
     return {
