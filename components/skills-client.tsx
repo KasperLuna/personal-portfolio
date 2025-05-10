@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { Tooltip } from "@/components/ui/tooltip"
-import { Skill } from "@/lib/contentful"
+import { type Skill } from "@/lib/contentful"
 
 interface SkillsClientProps {
     skills: Skill[]

@@ -29,16 +29,23 @@ export interface Skill {
 
 export async function fetchProjects(): Promise<Project[]> {
   const entries = await client.getEntries({ content_type: 'portfolioProject' });
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  return entries.items.map((item: any) => {
+  return entries.items.map((item) => {
     const fields = item.fields;
     return {
-      title: fields.title,
-      description: fields.description,
-      displayImage: fields.displayImage?.fields?.file?.url || '',
-      projectUrl: fields.projectUrl,
-      codeUrl: fields.codeUrl,
-      techStack: fields.techStack || [],
+      title: typeof fields.title === 'string' ? fields.title : '',
+      description: typeof fields.description === 'string' ? fields.description : '',
+      displayImage:
+        typeof fields.displayImage === 'object' &&
+        fields.displayImage !== null &&
+        'fields' in fields.displayImage &&
+        typeof fields.displayImage.fields === 'object' &&
+        fields.displayImage.fields !== null &&
+        'file' in fields.displayImage.fields
+          ? (fields.displayImage.fields as { file?: { url?: string } }).file?.url || ''
+          : '',
+      projectUrl: typeof fields.projectUrl === 'string' ? fields.projectUrl : '',
+      codeUrl: typeof fields.codeUrl === 'string' ? fields.codeUrl : '',
+      techStack: Array.isArray(fields.techStack) ? fields.techStack as string[] : [],
     };
   });
 }
@@ -46,12 +53,23 @@ export async function fetchProjects(): Promise<Project[]> {
 export async function fetchSkills(): Promise<Skill[]> {
   const entries = await client.getEntries({ content_type: 'portfolioSkill' });
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-  return entries.items.map((item: any) => {
+  return entries.items.map((item) => {
     const fields = item.fields;
     return {
-      name: fields.name,
-      category: fields.category,
-      icon: fields.icon?.fields?.file?.url || '',
+      name: typeof fields.name === 'string' ? fields.name : '',
+      category: typeof fields.category === 'string' ? fields.category : '',
+      icon:
+        fields.icon &&
+        typeof fields.icon === 'object' &&
+        'fields' in fields.icon &&
+        fields.icon.fields &&
+        typeof fields.icon.fields === 'object' &&
+        'file' in fields.icon.fields &&
+        fields.icon.fields.file &&
+        typeof fields.icon.fields.file === 'object' &&
+        'url' in fields.icon.fields.file
+          ? (fields.icon.fields.file as { url?: string }).url || ''
+          : '',
     };
   });
 }
