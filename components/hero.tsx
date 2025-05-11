@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import dynamic from "next/dynamic"
@@ -11,6 +11,7 @@ import { useTheme } from "next-themes"
 // Dynamically import the 3D model to avoid SSR issues
 const HeroModel = dynamic(() => import("@/components/hero-model"), {
   ssr: false,
+  loading: () => null,
 })
 
 export default function Hero() {

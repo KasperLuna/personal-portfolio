@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { useTheme } from "next-themes"
 
-function Particles({ count = 1000, isDarkMode = false }: { count?: number; isDarkMode?: boolean }) {
+function Particles({ count = 500, isDarkMode = false }: { count?: number; isDarkMode?: boolean }) {
   const mesh = useRef<{
     rotation: { x: number; y: number; z: number }
     position: { x: number; y: number; z: number }
