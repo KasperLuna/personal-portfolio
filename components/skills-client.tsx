@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useRef, useEffect, useState } from "react"
+import { useRef, useMemo } from "react"
 import { motion, useInView } from "framer-motion"
 import { Tooltip } from "@/components/ui/tooltip"
 import { type Skill } from "@/lib/contentful"
@@ -13,15 +13,12 @@ interface SkillsClientProps {
 export default function SkillsClient({ skills }: SkillsClientProps) {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { once: true, amount: 0.2 })
-    const [groupedSkills, setGroupedSkills] = useState<Record<string, Skill[]>>({})
-
-    useEffect(() => {
-        const grouped = skills.reduce((acc, skill) => {
-            if (!acc[skill.category]) acc[skill.category] = []
-            acc[skill.category].push(skill)
+    // Use useMemo for grouping to avoid unnecessary state/effect
+    const groupedSkills = useMemo(() => {
+        return skills.reduce((acc, skill) => {
+            (acc[skill.category] ||= []).push(skill)
             return acc
         }, {} as Record<string, Skill[]>)
-        setGroupedSkills(grouped)
     }, [skills])
 
     const containerVariants = {
@@ -86,7 +83,8 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                                                         width={32}
                                                         height={32}
                                                         className="h-8 w-8 object-contain"
-                                                        unoptimized
+                                                        sizes="32px"
+                                                        loading="lazy"
                                                     />
                                                 ) : (
                                                     <span className="h-8 w-8" />

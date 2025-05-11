@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 export const metadata: Metadata = {
   title: "Kasper Luna | Software Engineer",
   description: "Software Engineer experienced in Frontend & Backend System Design, Project Management, and Development",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
