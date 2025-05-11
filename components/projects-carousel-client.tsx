@@ -184,15 +184,15 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                     </div>
                     {/* Dots */}
                     <div className="flex justify-center mt-4 space-x-2">
-                        {projects.map((_, idx) => (
+                        {projects.map((project, idx) => (
                             <button
-                                key={`dot-${idx}`}
+                                key={`dot-${project.title}`}
                                 className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === selectedIndex
                                     ? "bg-purple-500 scale-125"
                                     : "bg-purple-200 dark:bg-purple-900"
                                     }`}
                                 onClick={() => handleSelect(idx)}
-                                aria-label={`Go to project ${idx + 1}`}
+                                aria-label={`Go to project ${project.title}`}
                             />
                         ))}
                     </div>

@@ -57,7 +57,7 @@ const config = {
         ],
       },
       {
-        source: '/(.*)\.(webp|jpg|jpeg|png|svg|ico|gif|css|js)$',
+        source: '/(.*).(webp|jpg|jpeg|png|svg|ico|gif|css|js)$',
         headers: [
           {
             key: 'Cache-Control',

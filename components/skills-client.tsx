@@ -16,7 +16,10 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
     // Use useMemo for grouping to avoid unnecessary state/effect
     const groupedSkills = useMemo(() => {
         return skills.reduce((acc, skill) => {
-            (acc[skill.category] ||= []).push(skill)
+            if (!acc[skill.category]) {
+                acc[skill.category] = []
+            }
+            acc[skill.category].push(skill)
             return acc
         }, {} as Record<string, Skill[]>)
     }, [skills])

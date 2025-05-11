@@ -163,7 +163,7 @@ export default function Contact() {
 
             <motion.div variants={itemVariants}>
               <form
-                onSubmit={handleSubmit}
+                onSubmit={(e) => { void handleSubmit(e) }}
                 className="space-y-6"
               >
                 <div className="space-y-2">
