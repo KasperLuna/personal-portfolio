@@ -14,7 +14,7 @@ import CountdownTimer from "~/components/CountdownTimer";
 import MapLocation from "~/components/MapLocation";
 import { Toaster } from "~/components/ui/toaster";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Spinner } from "~/assets/Spinner";
 
 type Attendee = {
@@ -37,6 +37,12 @@ type EventDetails = {
 };
 
 export default function EventForm({ title, description, date, location, expectations, mapSrc }: EventDetails) {
+    useEffect(() => {
+        if (title) {
+            document.title = title;
+        }
+    }, [title]);
+
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
