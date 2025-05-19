@@ -7,13 +7,9 @@
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
 
 /** @type {import("next").NextConfig} */
-import Analyzer from "@next/bundle-analyzer";
 
 const config = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
    * must comment the below `i18n` config out.
@@ -26,8 +22,4 @@ const config = {
   },
 };
 
-const withBundleAnalyzer = Analyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-export default withBundleAnalyzer(config);
+export default config;
