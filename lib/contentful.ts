@@ -76,7 +76,7 @@ export async function fetchSkills(): Promise<Skill[]> {
         'url' in fields.icon.fields.file
           ? (fields.icon.fields.file as { url?: string }).url || ''
           : '',
-        iconColor: fields.iconColor || undefined
+        iconColor: typeof fields.iconColor === 'string' ? fields.iconColor : undefined
     };
   });
 }
