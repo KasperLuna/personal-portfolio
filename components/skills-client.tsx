@@ -88,6 +88,11 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                                                         className="h-8 w-8 object-contain"
                                                         sizes="32px"
                                                         loading="lazy"
+                                                        style={{
+                                                            filter: skill.iconColor
+                                                                ? `drop-shadow(0 0 5px ${skill.iconColor}) saturate(2) brightness(1.1)`
+                                                                : undefined,
+                                                        }}
                                                     />
                                                 ) : (
                                                     <span className="h-8 w-8" />

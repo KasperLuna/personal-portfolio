@@ -115,7 +115,7 @@ export default function Contact() {
             <motion.div variants={itemVariants}>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Contact Information</h3>
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">
-                I&apos;m currently open to freelance opportunities and collaborations. Feel free to reach out if you have a
+                I&apos;d love to sync up on any ideas you want to run by me, just feel free to reach out if you have a
                 project in mind or just want to connect!
               </p>
 

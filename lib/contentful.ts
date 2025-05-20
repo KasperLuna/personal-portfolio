@@ -25,6 +25,7 @@ export interface Skill {
   name: string;
   category: string;
   icon: string; // This will be a URL to the icon asset
+  iconColor?: string; // Optional property for icon color
 }
 
 export async function fetchProjects(): Promise<Project[]> {
@@ -46,17 +47,13 @@ export async function fetchProjects(): Promise<Project[]> {
       projectUrl: typeof fields.projectUrl === 'string' ? fields.projectUrl : '',
       codeUrl: typeof fields.codeUrl === 'string' ? fields.codeUrl : '',
       techStack: Array.isArray(fields.techStack) ? fields.techStack as string[] : [],
+      isMonochrome: fields.isMonochrome === true,
     };
   });
 
-  // Duplicate all entries by 3 for testing, making titles unique
-  return [
-    ...projects.map((p, i) => ({ ...p, title: `${p.title} (1)` })),
-    ...projects.map((p, i) => ({ ...p, title: `${p.title} (2)` })),
-    ...projects.map((p, i) => ({ ...p, title: `${p.title} (3)` })),
-    ...projects.map((p, i) => ({ ...p, title: `${p.title} (4)` })),
-    ...projects.map((p, i) => ({ ...p, title: `${p.title} (5)` })),
-  ];
+  return projects.filter((project) => project.title && project.description);
+
+
 }
 
 export async function fetchSkills(): Promise<Skill[]> {
@@ -79,6 +76,42 @@ export async function fetchSkills(): Promise<Skill[]> {
         'url' in fields.icon.fields.file
           ? (fields.icon.fields.file as { url?: string }).url || ''
           : '',
+        iconColor: fields.iconColor || undefined
     };
   });
+}
+
+export type Event = {
+  eventTitle: string;
+  eventDescription: string;
+  eventDate: Date;
+  eventLocation: string;
+  eventExpectations: string;
+  eventMapSrc: string;
+};
+
+export async function getEventBySlug(
+  slug: string,
+  contentType = "event",
+): Promise<Event | null> {
+  const entries = await client.getEntries({
+    content_type: contentType,
+    "fields.slug": slug,
+    limit: 1,
+  });
+
+  const item = entries.items[0];
+  if (!item) return null;
+
+  if (item.fields.slug !== slug) return null;
+
+  const fields = item.fields as unknown as Event;
+  return {
+    eventTitle: fields.eventTitle,
+    eventDescription: fields.eventDescription,
+    eventDate: new Date(fields.eventDate),
+    eventLocation: fields.eventLocation,
+    eventExpectations: fields.eventExpectations,
+    eventMapSrc: fields.eventMapSrc,
+  };
 }

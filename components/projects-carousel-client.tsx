@@ -16,6 +16,7 @@ interface Project {
     projectUrl: string;
     codeUrl: string;
     techStack: string[];
+    isMonochrome?: boolean; // Add this property
 }
 
 const containerVariants = {
@@ -58,15 +59,7 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                         className="p-4 object-contain transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 350px) 100vw, 350px"
                         priority={index === 0}
-                        style={
-                            project.displayImage?.endsWith('.svg')
-                                ? {
-                                    filter: isDark
-                                        ? "brightness(0) saturate(100%) invert(1)"
-                                        : "brightness(0) saturate(100%)",
-                                }
-                                : undefined
-                        }
+                        style={isDark && project.isMonochrome ? { filter: "brightness(0) saturate(100%) invert(1)" } : undefined}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                     <div className="absolute bottom-0 left-0 right-0 flex justify-end gap-2 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
