@@ -104,6 +104,7 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                 </CardFooter>
             </Card>
         </div>
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     )), [projects, selectedIndex, isDark])
 
     // Memoize handleSelect

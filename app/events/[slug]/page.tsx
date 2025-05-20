@@ -1,5 +1,5 @@
 import EventForm from "@/components/EventForm";
-import { getEventBySlug } from "@/lib/contentful";
+import { Event, getEventBySlug } from "@/lib/contentful";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function EventRSVP({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const event = await fetchEvent(slug);
+    const event: Event = await fetchEvent(slug);
     if (!event) notFound();
 
     const eventDetails = {
