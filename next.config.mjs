@@ -6,14 +6,15 @@
  */
 
 /** @type {import("next").NextConfig} */
-import Analyzer from "@next/bundle-analyzer";
 
 const config = {
   reactStrictMode: true,
   images: {
-    domains: [
-      // Add your Contentful or other remote image domains here
-      'images.ctfassets.net',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+      },
       // Add more as needed
     ],
   },
@@ -69,8 +70,4 @@ const config = {
   },
 };
 
-const withBundleAnalyzer = Analyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-export default withBundleAnalyzer(config);
+export default config;

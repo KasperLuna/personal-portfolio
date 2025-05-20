@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 
-const space = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
-const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+const space = process.env.CONTENTFUL_SPACE_ID;
+const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
 if (!space || !accessToken) {
   throw new Error('Missing Contentful environment variables');
@@ -29,7 +29,7 @@ export interface Skill {
 
 export async function fetchProjects(): Promise<Project[]> {
   const entries = await client.getEntries({ content_type: 'portfolioProject' });
-  return entries.items.map((item) => {
+  const projects = entries.items.map((item) => {
     const fields = item.fields;
     return {
       title: typeof fields.title === 'string' ? fields.title : '',
@@ -48,6 +48,15 @@ export async function fetchProjects(): Promise<Project[]> {
       techStack: Array.isArray(fields.techStack) ? fields.techStack as string[] : [],
     };
   });
+
+  // Duplicate all entries by 3 for testing, making titles unique
+  return [
+    ...projects.map((p, i) => ({ ...p, title: `${p.title} (1)` })),
+    ...projects.map((p, i) => ({ ...p, title: `${p.title} (2)` })),
+    ...projects.map((p, i) => ({ ...p, title: `${p.title} (3)` })),
+    ...projects.map((p, i) => ({ ...p, title: `${p.title} (4)` })),
+    ...projects.map((p, i) => ({ ...p, title: `${p.title} (5)` })),
+  ];
 }
 
 export async function fetchSkills(): Promise<Skill[]> {
