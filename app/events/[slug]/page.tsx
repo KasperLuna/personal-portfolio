@@ -1,5 +1,6 @@
 import EventForm from "@/components/EventForm";
 import { type Event, getEventBySlug } from "@/lib/contentful";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
@@ -14,8 +15,16 @@ async function fetchEvent(slug: string): Promise<Event | null> {
     return await eventCache.get(slug) || Promise.resolve(null);
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<{ title: string; description: string }> {
-    const { slug } = params;
+
+type Props = {
+    params: Promise<{ slug: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata(
+    { params }: Props,
+): Promise<Metadata> {
+    const { slug } = await params;
     const event = await fetchEvent(slug);
     return {
         title: event?.eventTitle || "Event Title",
@@ -23,8 +32,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function EventRSVP({ params }: { params: { slug: string } }): Promise<JSX.Element> {
-    const { slug } = params;
+export default async function EventRSVP({ params }: Props) {
+    const { slug } = await params;
     const event = await fetchEvent(slug);
     if (!event) notFound();
 
