@@ -1,21 +1,21 @@
 import EventForm from "@/components/EventForm";
-import { Event, getEventBySlug } from "@/lib/contentful";
+import { type Event, getEventBySlug } from "@/lib/contentful";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 // Simple in-memory cache for the current request
-const eventCache = new Map<string, Promise<any>>();
+const eventCache = new Map<string, Promise<Event | null>>();
 
-async function fetchEvent(slug: string) {
+async function fetchEvent(slug: string): Promise<Event | null> {
     if (!eventCache.has(slug)) {
         eventCache.set(slug, getEventBySlug(slug));
     }
-    return await eventCache.get(slug);
+    return await eventCache.get(slug) || Promise.resolve(null);
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<{ title: string; description: string }> {
+    const { slug } = params;
     const event = await fetchEvent(slug);
     return {
         title: event?.eventTitle || "Event Title",
@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-export default async function EventRSVP({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
-    const event: Event = await fetchEvent(slug);
+export default async function EventRSVP({ params }: { params: { slug: string } }): Promise<JSX.Element> {
+    const { slug } = params;
+    const event = await fetchEvent(slug);
     if (!event) notFound();
 
     const eventDetails = {
