@@ -70,7 +70,7 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                         <motion.div key={category} variants={itemVariants}>
                             <h3 className="mb-4 text-2xl font-semibold text-purple-600 dark:text-purple-400">{category}</h3>
                             <div className="flex flex-wrap gap-5 justify-center">
-                                {skills.map((skill, i) => (
+                                {skills.map((skill) => (
                                     <Tooltip key={skill.name} text={skill.name}>
                                         <motion.div
                                             className="flex flex-col items-center justify-center group relative cursor-pointer"

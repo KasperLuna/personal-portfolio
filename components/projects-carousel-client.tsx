@@ -34,7 +34,6 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
     const isInView = useInView(ref, { once: true, amount: 0.1 })
     const [emblaRef, emblaApi] = useEmblaCarousel({ align: "center", skipSnaps: false, loop: true })
     const [selectedIndex, setSelectedIndex] = useState(0)
-    const autoplayRef = useRef<NodeJS.Timeout | null>(null)
 
 
     // Memoize handleSelect
