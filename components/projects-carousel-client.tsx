@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState, useCallback, useMemo } from "react"
+import { useRef, useEffect, useState, useCallback } from "react"
 import { motion, useInView } from "framer-motion"
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
@@ -35,14 +35,116 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
     const [emblaRef, emblaApi] = useEmblaCarousel({ align: "center", skipSnaps: false, loop: true })
     const [selectedIndex, setSelectedIndex] = useState(0)
     const autoplayRef = useRef<NodeJS.Timeout | null>(null)
+
+
+    // Memoize handleSelect
+    const handleSelect = useCallback((index: number) => {
+        emblaApi?.scrollTo(index)
+    }, [emblaApi])
+
+    useEffect(() => {
+        if (!emblaApi) return
+        const onSelect = () => {
+            setSelectedIndex(emblaApi.selectedScrollSnap())
+        }
+        emblaApi.on("select", onSelect)
+        onSelect()
+        return () => {
+            emblaApi.off("select", onSelect)
+        }
+    }, [emblaApi])
+
+    // Autoplay every 7 seconds
+    useEffect(() => {
+        if (!emblaApi) return
+        const interval = setInterval(() => {
+            emblaApi.scrollNext()
+        }, 7000)
+        return () => clearInterval(interval)
+    }, [emblaApi])
+
+    return (
+        <motion.div
+            ref={ref}
+            className="container relative z-10 mx-auto px-6 lg:px-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+        >
+            <div className="relative h-full">
+                {/* Left Blur Overlay */}
+                <div className="pointer-events-none absolute left-0 top-0 h-full w-0 sm:w-40 z-20 bg-gradient-to-r from-white/90 dark:from-slate-900/90 to-transparent" />
+                {/* Right Blur Overlay */}
+                <div className="pointer-events-none absolute right-0 top-0 h-full w-0 sm:w-40 z-20 bg-gradient-to-l from-white/90 dark:from-slate-900/90 to-transparent" />
+                {/* Embla Carousel */}
+                <div ref={emblaRef} className="overflow-hidden">
+                    <div className="flex h-full">
+                        {projects.map((project, index) => (
+                            <div
+                                key={project.title}
+                                className="flex-shrink-0 h-full w-[350px]"
+                            >
+                                <ProjectCard
+                                    project={project}
+                                    index={index}
+                                    selectedIndex={selectedIndex}
+                                    handleSelect={handleSelect}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                {/* Chevrons and Dots below the carousel */}
+                <div className="flex flex-col items-center mt-6">
+                    <div className="flex justify-center space-x-8">
+                        {/* Left Chevron */}
+                        <button
+                            onClick={useCallback(() => emblaApi?.scrollPrev(), [emblaApi])}
+                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
+                            aria-label="Previous project"
+                        >
+                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                        {/* Right Chevron */}
+                        <button
+                            onClick={useCallback(() => emblaApi?.scrollNext(), [emblaApi])}
+                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
+                            aria-label="Next project"
+                        >
+                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    {/* Dots */}
+                    <div className="flex justify-center mt-4 space-x-2">
+                        {projects.map((project, idx) => (
+                            <button
+                                key={`dot-${project.title}`}
+                                className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === selectedIndex
+                                    ? "bg-purple-500 scale-125"
+                                    : "bg-purple-200 dark:bg-purple-900"
+                                    }`}
+                                onClick={() => handleSelect(idx)}
+                                aria-label={`Go to project ${project.title}`}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    )
+}
+
+const ProjectCard = ({ project, index, selectedIndex, handleSelect }: { project: Project; index: number; selectedIndex: number; handleSelect: (idx: number) => void; }) => {
     const { resolvedTheme } = useTheme()
     const isDark = resolvedTheme === "dark"
 
-    // Memoize project slides for performance
-    const slides = useMemo(() => projects.map((project, index) => (
+    return (
         <div
-            key={project.title}
-            className={`embla__slide flex-shrink-0 flex-grow-0 w-[350px] mx-2 transition-all duration-300
+            className={`h-full w-full transition-all duration-300
                 ${index === selectedIndex ? "opacity-100 scale-100 z-10" : "opacity-50 scale-95 z-0 cursor-pointer"}
             `}
             style={{ willChange: 'transform' }}
@@ -50,7 +152,7 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                 if (index !== selectedIndex) handleSelect(index)
             }}
         >
-            <Card className="group h-full max-w-[350px] mx-auto overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 dark:bg-slate-800/50 dark:hover:bg-slate-800">
+            <Card className="group h-full min-h-[450px] max-h-[450px] max-w-[450px] mx-auto overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 dark:bg-slate-800/50 dark:hover:bg-slate-800">
                 <div className="relative w-full aspect-[7/4] overflow-hidden">
                     <Image
                         src={project.displayImage || "/placeholder.svg?height=200&width=400"}
@@ -103,95 +205,6 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                     </div>
                 </CardFooter>
             </Card>
-        </div>
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    )), [projects, selectedIndex, isDark])
-
-    // Memoize handleSelect
-    const handleSelect = useCallback((index: number) => {
-        emblaApi?.scrollTo(index)
-    }, [emblaApi])
-
-    useEffect(() => {
-        if (!emblaApi) return
-        const onSelect = () => {
-            setSelectedIndex(emblaApi.selectedScrollSnap())
-        }
-        emblaApi.on("select", onSelect)
-        onSelect()
-        return () => {
-            emblaApi.off("select", onSelect)
-        }
-    }, [emblaApi])
-
-    useEffect(() => {
-        if (!emblaApi) return
-        if (autoplayRef.current) clearInterval(autoplayRef.current)
-        autoplayRef.current = setInterval(() => {
-            if (emblaApi) {
-                emblaApi.scrollNext()
-            }
-        }, 5000)
-        return () => {
-            if (autoplayRef.current) clearInterval(autoplayRef.current)
-        }
-    }, [emblaApi, selectedIndex])
-
-    return (
-        <motion.div
-            ref={ref}
-            className="container relative z-10 mx-auto px-6 lg:px-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-        >
-            <div className="relative flex flex-col items-center">
-                {/* Embla Carousel */}
-                <div ref={emblaRef} className="embla w-full max-w-full overflow-hidden">
-                    <div className="embla__container flex" style={{ willChange: 'transform' }}>
-                        {slides}
-                    </div>
-                </div>
-                {/* Chevrons and Dots below the carousel */}
-                <div className="flex flex-col items-center mt-6">
-                    <div className="flex justify-center space-x-8">
-                        {/* Left Chevron */}
-                        <button
-                            onClick={useCallback(() => emblaApi?.scrollPrev(), [emblaApi])}
-                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
-                            aria-label="Previous project"
-                        >
-                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                                <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                        {/* Right Chevron */}
-                        <button
-                            onClick={useCallback(() => emblaApi?.scrollNext(), [emblaApi])}
-                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
-                            aria-label="Next project"
-                        >
-                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                                <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
-                    {/* Dots */}
-                    <div className="flex justify-center mt-4 space-x-2">
-                        {projects.map((project, idx) => (
-                            <button
-                                key={`dot-${project.title}`}
-                                className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === selectedIndex
-                                    ? "bg-purple-500 scale-125"
-                                    : "bg-purple-200 dark:bg-purple-900"
-                                    }`}
-                                onClick={() => handleSelect(idx)}
-                                aria-label={`Go to project ${project.title}`}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </motion.div>
+        </div >
     )
 }

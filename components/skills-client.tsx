@@ -65,40 +65,43 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                         Here&apos;s some of the tricks I&apos;ve picked up along the way.
                     </motion.p>
                 </div>
-                <div className="mx-auto mt-16 max-w-7xl">
+                <div className="mx-auto mt-16 max-w-7xl items-center justify-center flex flex-col gap-16 px-4 sm:px-6 lg:px-8">
                     {Object.entries(groupedSkills).map(([category, skills]) => (
-                        <motion.div key={category} className="mb-16" variants={itemVariants}>
-                            <h3 className="mb-8 text-2xl font-semibold text-purple-600 dark:text-purple-400">{category}</h3>
-                            <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-6">
-                                {skills.map((skill) => (
+                        <motion.div key={category} variants={itemVariants}>
+                            <h3 className="mb-4 text-2xl font-semibold text-purple-600 dark:text-purple-400">{category}</h3>
+                            <div className="flex flex-wrap gap-5 justify-center">
+                                {skills.map((skill, i) => (
                                     <Tooltip key={skill.name} text={skill.name}>
                                         <motion.div
-                                            className="flex flex-col items-center justify-center"
+                                            className="flex flex-col items-center justify-center group relative cursor-pointer"
                                             variants={itemVariants}
-                                            whileHover={{ scale: 1.1 }}
-                                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                                            whileHover={{ scale: 1.12, rotate: 4 }}
+                                            whileTap={{ scale: 0.98, rotate: -2 }}
+                                            transition={{ type: "spring", stiffness: 400, damping: 18 }}
+                                            tabIndex={0}
                                         >
-                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg dark:bg-slate-800">
+                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md dark:bg-slate-500 z-10 border border-slate-200 dark:border-slate-700 group-hover:border-purple-400 group-focus:border-purple-400 transition-all duration-200">
                                                 {skill.icon ? (
                                                     <Image
                                                         src={skill.icon}
                                                         alt={skill.name}
-                                                        width={32}
-                                                        height={32}
-                                                        className="h-8 w-8 object-contain"
-                                                        sizes="32px"
+                                                        width={48}
+                                                        height={48}
+                                                        className="h-12 w-12 object-contain drop-shadow group-hover:scale-110 group-hover:drop-shadow-lg transition-transform duration-200"
+                                                        sizes="48px"
                                                         loading="lazy"
                                                         style={{
                                                             filter: skill.iconColor
-                                                                ? `drop-shadow(0 0 5px ${skill.iconColor}) saturate(2) brightness(1.1)`
+                                                                ? `drop-shadow(0 0 5px ${skill.iconColor}) saturate(1.5) brightness(1.08)`
                                                                 : undefined,
                                                         }}
                                                     />
                                                 ) : (
-                                                    <span className="h-8 w-8" />
+                                                    <span className="h-12 w-12" />
                                                 )}
                                             </div>
-                                            <span className="mt-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                            {/* Skill Name (below icon, always visible) */}
+                                            <span className="mt-2 text-sm font-medium text-slate-700 dark:text-slate-300 truncate w-20 text-center">
                                                 {skill.name}
                                             </span>
                                         </motion.div>
