@@ -53,7 +53,7 @@ export default function CountdownTimer({ targetDate }: { targetDate: Date }) {
 
     return (
         <div className="w-full">
-            <h3 className="text-center font-medium mb-3 text-slate-800 dark:text-slate-200">Countdown to Party Time!</h3>
+            <h3 className="text-center font-medium mb-3 text-slate-800 dark:text-slate-200">Countdown!</h3>
             <div className="grid grid-cols-4 gap-2">
                 {timeBlocks.map((block) => (
                     <div key={block.label} className="flex flex-col items-center">
