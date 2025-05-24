@@ -137,6 +137,7 @@ export default function EventForm({ title, description, date, location, expectat
                     transition={{ duration: 0.5 }}
                     className="text-center mb-8"
                 >
+                    <p className="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-2">You're invited to...</p>
                     <h1 className="text-4xl md:text-6xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 tracking-tight">
                         {title}
                     </h1>
