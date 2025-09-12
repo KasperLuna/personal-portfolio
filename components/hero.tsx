@@ -3,16 +3,9 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowDown } from "lucide-react"
-import dynamic from "next/dynamic"
 import { BannerHero, StackHero } from "./KasperLunaLogo"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
-
-// Dynamically import the 3D model to avoid SSR issues
-const HeroModel = dynamic(() => import("@/components/hero-model"), {
-  ssr: false,
-  loading: () => null,
-})
 
 export default function Hero() {
   const { resolvedTheme } = useTheme()
@@ -65,9 +58,6 @@ export default function Hero() {
       onMouseMove={handleSectionMouseMove}
       onMouseLeave={handleSectionMouseLeave}
     >
-      <div className="absolute inset-0 z-0">
-        <HeroModel />
-      </div>
 
       <div className="container relative z-10 mx-auto flex flex-col items-center justify-center px-4 text-center">
         <motion.div
