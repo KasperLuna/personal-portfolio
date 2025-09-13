@@ -60,11 +60,8 @@ export default function Hero() {
     >
 
       <div className="container relative z-10 mx-auto flex flex-col items-center justify-center px-4 text-center">
-        <motion.div
+        <div
           className="flex flex-grow mb-4 flex-shrink-0 w-full max-w-3xl"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <svg height={0}>
             <defs>
@@ -92,7 +89,7 @@ export default function Hero() {
           >
             <StackHero />
           </div>
-        </motion.div>
+        </div>
         {/*  hide bannerhero when screen is smaller than md */}
 
 
