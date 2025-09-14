@@ -67,8 +67,8 @@ export default function About() {
               Hi, I&apos;m Kasper.
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-              I&apos;m a full stack software engineer based in Manila, and an honors graduate of B.S. Information
-              Systems at the University of Santo Tomas.
+              I&apos;m a full stack software engineer based in Metro Manila, passionate about creating exceptional 
+              digital experiences and leading teams to deliver innovative solutions.
             </p>
             <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
               {(Array.isArray(features) ? features : []).map((feature) => (
@@ -94,7 +94,7 @@ export default function About() {
               <div className="relative h-full w-full rounded-2xl">
                 <Image
                   src="/face.webp"
-                  alt="Kasper Luna's Graduation Photo"
+                  alt="Kasper Luna - Full Stack Software Engineer"
                   fill
                   className="rounded-2xl object-cover"
                   sizes="(max-width: 768px) 350px, 400px"
