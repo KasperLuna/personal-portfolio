@@ -68,7 +68,7 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                 <div className="mx-auto mt-16 max-w-7xl items-center justify-center flex flex-col gap-16 px-4 sm:px-6 lg:px-8">
                     {Object.entries(groupedSkills).map(([category, skills]) => (
                         <motion.div key={category} variants={itemVariants}>
-                            <h3 className="mb-4 text-2xl font-semibold text-purple-600 dark:text-purple-400">{category}</h3>
+                            <h3 className="mb-4 text-2xl font-semibold text-blue-600 dark:text-blue-400">{category}</h3>
                             <div className="flex flex-wrap gap-5 justify-center">
                                 {skills.map((skill) => (
                                     <Tooltip key={skill.name} text={skill.name}>
@@ -80,7 +80,7 @@ export default function SkillsClient({ skills }: SkillsClientProps) {
                                             transition={{ type: "spring", stiffness: 400, damping: 18 }}
                                             tabIndex={0}
                                         >
-                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md dark:bg-slate-500 z-10 border border-slate-200 dark:border-slate-700 group-hover:border-purple-400 group-focus:border-purple-400 transition-all duration-200">
+                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md dark:bg-slate-500 z-10 border border-slate-200 dark:border-slate-700 group-hover:border-blue-400 group-focus:border-blue-400 transition-all duration-200">
                                                 {skill.icon ? (
                                                     <Image
                                                         src={skill.icon}

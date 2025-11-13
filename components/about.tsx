@@ -67,14 +67,14 @@ export default function About() {
               Hi, I&apos;m Kasper.
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-              I&apos;m a full stack software engineer based in Metro Manila, passionate about creating exceptional 
+              I&apos;m a full stack software engineer based in Metro Manila, passionate about creating exceptional
               digital experiences and leading teams to deliver innovative solutions.
             </p>
             <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
               {(Array.isArray(features) ? features : []).map((feature) => (
                 <motion.div key={feature.name} className="relative pl-12" variants={itemVariants}>
                   <dt className="inline font-semibold text-gray-900 dark:text-gray-300">
-                    <feature.icon className="absolute left-0 top-1 h-6 w-6 text-purple-600" aria-hidden="true" />
+                    <feature.icon className="absolute left-0 top-1 h-6 w-6 text-blue-600" aria-hidden="true" />
                     {feature.name}{" "}
                   </dt>
                   <dd className="inline text-slate-500 dark:text-slate-400">{feature.description}</dd>
@@ -90,7 +90,7 @@ export default function About() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="relative h-[400px] w-[350px] overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-slate-800 sm:h-[500px] sm:w-[400px]">
-              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 opacity-75 blur"></div>
+              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-600 opacity-75 blur"></div>
               <div className="relative h-full w-full rounded-2xl">
                 <Image
                   src="/face.webp"

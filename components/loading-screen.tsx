@@ -17,7 +17,7 @@ export default function LoadingScreen() {
         transition={{ duration: 0.5 }}
       >
         <svg
-          className="h-16 w-16 text-purple-600 dark:text-purple-500"
+          className="h-16 w-16 text-blue-600 dark:text-blue-500"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

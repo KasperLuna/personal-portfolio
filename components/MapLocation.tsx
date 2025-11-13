@@ -4,7 +4,7 @@ export default function MapLocation({ eventMapSrc }: { eventMapSrc: string }) {
     return (
         <div className="w-full mt-4">
             <h3 className="font-medium mb-2 flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
-                <MapPin className="h-4 w-4 text-purple-500 dark:text-purple-400" />
+                <MapPin className="h-4 w-4 text-blue-500 dark:text-blue-400" />
                 Map Location
             </h3>
             <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">

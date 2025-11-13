@@ -99,7 +99,7 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                         {/* Left Chevron */}
                         <button
                             onClick={useCallback(() => emblaApi?.scrollPrev(), [emblaApi])}
-                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
+                            className="flex items-center justify-center px-2 text-blue-500 hover:text-blue-700 transition-colors"
                             aria-label="Previous project"
                         >
                             <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
@@ -109,7 +109,7 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                         {/* Right Chevron */}
                         <button
                             onClick={useCallback(() => emblaApi?.scrollNext(), [emblaApi])}
-                            className="flex items-center justify-center px-2 text-purple-500 hover:text-purple-700 transition-colors"
+                            className="flex items-center justify-center px-2 text-blue-500 hover:text-blue-700 transition-colors"
                             aria-label="Next project"
                         >
                             <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
@@ -123,8 +123,8 @@ export default function ProjectsCarousel({ projects }: { projects: Project[] }) 
                             <button
                                 key={`dot-${project.title}`}
                                 className={`h-2 w-2 rounded-full transition-all duration-300 ${idx === selectedIndex
-                                    ? "bg-purple-500 scale-125"
-                                    : "bg-purple-200 dark:bg-purple-900"
+                                    ? "bg-blue-500 scale-125"
+                                    : "bg-blue-200 dark:bg-blue-900"
                                     }`}
                                 onClick={() => handleSelect(idx)}
                                 aria-label={`Go to project ${project.title}`}
@@ -151,7 +151,7 @@ const ProjectCard = ({ project, index, selectedIndex, handleSelect }: { project:
                 if (index !== selectedIndex) handleSelect(index)
             }}
         >
-            <Card className="group h-full min-h-[450px] max-h-[450px] max-w-[450px] mx-auto overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 dark:bg-slate-800/50 dark:hover:bg-slate-800">
+            <Card className="group h-full min-h-[450px] max-h-[450px] max-w-[450px] mx-auto overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 dark:bg-slate-800/50 dark:hover:bg-slate-800">
                 <div className="relative w-full aspect-[7/4] overflow-hidden">
                     <Image
                         src={project.displayImage || "/placeholder.svg?height=200&width=400"}
@@ -196,7 +196,7 @@ const ProjectCard = ({ project, index, selectedIndex, handleSelect }: { project:
                         {(Array.isArray(project.techStack) ? project.techStack : []).map((tech: string) => (
                             <span
                                 key={tech}
-                                className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800 dark:bg-purple-900/30 dark:text-purple-300"
+                                className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
                             >
                                 {tech}
                             </span>

@@ -110,7 +110,7 @@ export default function Hero() {
         >
           <a
             href="#about"
-            className="group flex items-center justify-center gap-2 rounded-full bg-purple-600 px-6 py-3 font-medium text-white transition-all hover:bg-purple-700 hover:shadow-lg hover:shadow-purple-500/20"
+            className="group flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20"
           >
             Learn More
             <ArrowDown className="h-4 w-4 animate-bounce" />

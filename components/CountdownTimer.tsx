@@ -12,7 +12,7 @@ export default function CountdownTimer({ targetDate }: { targetDate: Date }) {
 
     useEffect(() => {
         const calculateTimeLeft = () => {
-            const difference = targetDate.getTime() - new Date().getTime()
+            const difference = targetDate.getTime() - Date.now()
 
             if (difference <= 0) {
                 setIsExpired(true)
@@ -46,7 +46,7 @@ export default function CountdownTimer({ targetDate }: { targetDate: Date }) {
     if (isExpired) {
         return (
             <div className="text-center py-2">
-                <p className="text-lg font-medium text-purple-600 dark:text-purple-400">The party is happening now! 🎉</p>
+                <p className="text-lg font-medium text-blue-600 dark:text-blue-400">The party is happening now! 🎉</p>
             </div>
         )
     }
@@ -57,7 +57,7 @@ export default function CountdownTimer({ targetDate }: { targetDate: Date }) {
             <div className="grid grid-cols-4 gap-2">
                 {timeBlocks.map((block) => (
                     <div key={block.label} className="flex flex-col items-center">
-                        <div className="bg-gradient-to-br from-purple-500 to-indigo-500 text-white rounded-lg w-full py-2 px-1 flex items-center justify-center">
+                        <div className="bg-gradient-to-br from-blue-500 to-indigo-500 text-white rounded-lg w-full py-2 px-1 flex items-center justify-center">
                             <span className="text-xl md:text-2xl font-bold">{block.value.toString().padStart(2, "0")}</span>
                         </div>
                         <span className="text-xs mt-1 text-slate-600 dark:text-slate-400">{block.label}</span>

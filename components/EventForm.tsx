@@ -137,8 +137,8 @@ export default function EventForm({ title, description, date, location, expectat
                     transition={{ duration: 0.5 }}
                     className="text-center mb-8"
                 >
-                    <p className="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-2">{"You're invited to..."}</p>
-                    <h1 className="text-4xl md:text-6xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 tracking-tight">
+                    <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">{"You're invited to..."}</p>
+                    <h1 className="text-4xl md:text-6xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-blue-500 to-indigo-500 tracking-tight">
                         {title}
                     </h1>
                     <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 italic">
@@ -153,7 +153,7 @@ export default function EventForm({ title, description, date, location, expectat
                     <Card className="mb-8 shadow-lg border-0 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm">
                         <CardHeader className="pb-4">
                             <CardTitle className="flex items-center gap-2 text-2xl text-slate-900 dark:text-slate-50">
-                                <PartyPopper className="h-6 w-6 text-purple-500 dark:text-purple-400" />
+                                <PartyPopper className="h-6 w-6 text-blue-500 dark:text-blue-400" />
                                 Event Details
                             </CardTitle>
                             <CardDescription className="text-slate-500 dark:text-slate-400">All the important info you need to know</CardDescription>
@@ -206,11 +206,45 @@ export default function EventForm({ title, description, date, location, expectat
                     </Card>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {!isSubmitted ? (
+                        {isSubmitted ? (
                             <Card className="shadow-lg border-0 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm">
                                 <CardHeader>
                                     <CardTitle className="text-2xl flex items-center gap-2 text-slate-900 dark:text-slate-50">
-                                        <User className="h-6 w-6 text-purple-500 dark:text-purple-400" />
+                                        <PartyPopper className="h-6 w-6 text-blue-500 dark:text-blue-400" />
+                                        See you soon!
+                                    </CardTitle>
+                                    <CardDescription className="text-slate-500 dark:text-slate-400">
+                                        Your RSVP has been submitted successfully. Here&apos;s what you shared:
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    {getValues()?.attendees.map((field: Attendee, index) => (
+                                        <div key={field?.id} className="space-y-2">
+                                            <h3 className={cn("font-medium text-lg", index === 0
+                                                ? "text-blue-600 dark:text-blue-400"
+                                                : "text-slate-700 dark:text-slate-300")}>
+                                                {index === 0 ? "Your Information" : `Additional Attendee ${index}`}
+                                            </h3>
+                                            <p className="text-slate-700 dark:text-slate-300">
+                                                <span className="font-medium">Name:</span> {field.name || "N/A"}
+                                            </p>
+                                            <p className="text-slate-700 dark:text-slate-300">
+                                                <span className="font-medium">Attending:</span> {field.attending || "N/A"}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </CardContent>
+                                <CardFooter className="text-center">
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                                        Looking forward to celebrating with you! 🎉
+                                    </p>
+                                </CardFooter>
+                            </Card>
+                        ) : (
+                            <Card className="shadow-lg border-0 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm">
+                                <CardHeader>
+                                    <CardTitle className="text-2xl flex items-center gap-2 text-slate-900 dark:text-slate-50">
+                                        <User className="h-6 w-6 text-blue-500 dark:text-blue-400" />
                                         RSVP
                                     </CardTitle>
                                     <CardDescription className="text-slate-500 dark:text-slate-400">
@@ -224,7 +258,7 @@ export default function EventForm({ title, description, date, location, expectat
 
                                             <div className="flex justify-between items-center">
                                                 <h3 className={cn("font-medium text-lg", index === 0
-                                                    ? "text-purple-600 dark:text-purple-400"
+                                                    ? "text-blue-600 dark:text-blue-400"
                                                     : "text-slate-700 dark:text-slate-300")}>
                                                     {index === 0 ? "Your Information" : `Additional Attendee ${index}`}
                                                 </h3>
@@ -317,46 +351,12 @@ export default function EventForm({ title, description, date, location, expectat
                                     <Button
                                         type="submit"
                                         disabled={areButtonsDisabled}
-                                        className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white"
+                                        className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white"
                                     >
                                         {isSubmitting ? (<Spinner className="animate-spin" />) : ("Submit RSVP")}
                                     </Button>
                                     <p className="text-xs text-center text-slate-500 dark:text-slate-400">
                                         By submitting, you agree to potentially be in awkward photos.
-                                    </p>
-                                </CardFooter>
-                            </Card>
-                        ) : (
-                            <Card className="shadow-lg border-0 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm">
-                                <CardHeader>
-                                    <CardTitle className="text-2xl flex items-center gap-2 text-slate-900 dark:text-slate-50">
-                                        <PartyPopper className="h-6 w-6 text-purple-500 dark:text-purple-400" />
-                                        See you soon!
-                                    </CardTitle>
-                                    <CardDescription className="text-slate-500 dark:text-slate-400">
-                                        Your RSVP has been submitted successfully. Here&apos;s what you shared:
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    {getValues()?.attendees.map((field: Attendee, index) => (
-                                        <div key={field?.id} className="space-y-2">
-                                            <h3 className={cn("font-medium text-lg", index === 0
-                                                ? "text-purple-600 dark:text-purple-400"
-                                                : "text-slate-700 dark:text-slate-300")}>
-                                                {index === 0 ? "Your Information" : `Additional Attendee ${index}`}
-                                            </h3>
-                                            <p className="text-slate-700 dark:text-slate-300">
-                                                <span className="font-medium">Name:</span> {field.name || "N/A"}
-                                            </p>
-                                            <p className="text-slate-700 dark:text-slate-300">
-                                                <span className="font-medium">Attending:</span> {field.attending || "N/A"}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </CardContent>
-                                <CardFooter className="text-center">
-                                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                                        Looking forward to celebrating with you! 🎉
                                     </p>
                                 </CardFooter>
                             </Card>

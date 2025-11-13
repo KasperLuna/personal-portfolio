@@ -103,7 +103,7 @@ export default function Contact() {
           </motion.h2>
           <motion.p className="mt-4 text-lg text-gray-600 dark:text-gray-400" variants={itemVariants}>
             You can always reach me at{" "}
-            <a href="mailto:mail@kasperluna.com" className="text-purple-600 hover:underline dark:text-purple-400">
+            <a href="mailto:mail@kasperluna.com" className="text-blue-600 hover:underline dark:text-blue-400">
               mail@kasperluna.com
             </a>
             , but you can leave a message here too :)
@@ -121,14 +121,14 @@ export default function Contact() {
 
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30">
-                    <Mail className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+                    <Mail className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <p className="font-medium text-slate-900 dark:text-slate-100">Email</p>
                     <a
                       href="mailto:mail@kasperluna.com"
-                      className="text-sm text-slate-600 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400"
+                      className="text-sm text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                     >
                       mail@kasperluna.com
                     </a>
@@ -201,12 +201,12 @@ export default function Contact() {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700"
+                    className="w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700"
                   />
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800"
+                  className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

@@ -8,7 +8,7 @@ import { ScrollProgress } from "@/components/scroll-progress"
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-purple-500/30 dark:bg-slate-950 dark:text-slate-50">
+    <main className="relative min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-blue-500/30 dark:bg-slate-950 dark:text-slate-50">
       <ScrollProgress />
       <div className="relative z-10">
         <Navbar />
