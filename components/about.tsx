@@ -58,7 +58,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="relative overflow-hidden bg-slate-900 py-24 sm:py-32"
+      className="relative overflow-hidden bg-slate-900"
       onMouseMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect()
         sectionMouseRef.current = {
@@ -70,20 +70,20 @@ export default function About() {
         sectionMouseRef.current = { x: 0.75, y: 0.5 }
       }}
     >
-      {/* Full-section splat background */}
-      <div className="absolute inset-0 z-0">
+      {/* Mobile: block above card; Desktop (lg+): absolute full-section background */}
+      <div className="relative h-[600px] w-full md:absolute md:inset-0 md:h-auto">
         <SplatViewer mouseRef={sectionMouseRef} />
       </div>
 
       <motion.div
-        className="container relative z-10 mx-auto px-6 lg:px-8"
+        className="container relative z-10 mx-auto px-6 pb-16 md:py-32 md:px-8"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        <div className="mx-auto flex max-w-7xl justify-center lg:justify-start">
+        <div className="mx-auto flex max-w-7xl justify-center md:justify-start">
           <motion.div
-            className="w-full rounded-2xl bg-white/10 p-8 backdrop-blur-md lg:max-w-lg"
+            className="w-full rounded-2xl bg-white/10 p-8 backdrop-blur-md md:max-w-lg"
             variants={itemVariants}
           >
             <h2 className="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">
@@ -93,7 +93,7 @@ export default function About() {
               I&apos;m a full stack software engineer based in Metro Manila, passionate about creating exceptional
               digital experiences and leading teams to deliver innovative solutions.
             </p>
-            <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-300 lg:max-w-none">
+            <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-300 md:max-w-none">
               {(Array.isArray(features) ? features : []).map((feature) => (
                 <motion.div key={feature.name} className="relative pl-12" variants={itemVariants}>
                   <dt className="inline font-semibold text-gray-100">

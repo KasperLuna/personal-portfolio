@@ -12,19 +12,27 @@ const NEUTRAL_X = 0.75
 const NEUTRAL_Y = 0.5
 
 // Camera & scene config
-const CAMERA_Z = -5          // distance from origin — more negative = further away
-const CAMERA_X = 1.25            // horizontal offset of the camera
-const CAMERA_Y = 0.1            // vertical offset of the camera
-const SPLAT_SCALE = 6         // uniform scale of the splat model
-const SPLAT_X = 2.5           // horizontal world-space offset of the splat (positive = right)
-const SPLAT_Y = 0             // vertical world-space offset of the splat (positive = up)
-const SPLAT_Z = 0             // depth world-space offset of the splat
-const YAW_RANGE = Math.PI     // max yaw rotation (radians) — Math.PI = ±180°
+const BASE_FOV = 35          // vertical FOV (degrees) — telephoto: low distortion, zoomed in
+const BASE_ASPECT = 16 / 9  // reference aspect — used only for cover-FOV calculation
+const MD_BREAKPOINT = 768   // px — matches Tailwind md; below = mobile layout
+const CAMERA_Z = 11          // compensated for FOV halving (5 × tan35°/tan17.5° ≈ 11)
+const CAMERA_X = 1.25        // horizontal offset of the camera
+const CAMERA_Y = 0.15         // vertical offset of the camera
+const SPLAT_SCALE = 13        // uniform scale of the splat model
+const SPLAT_X = 2.4          // horizontal world-space offset of the splat (positive = right)
+const SPLAT_Y = 0            // vertical world-space offset of the splat (positive = up)
+const SPLAT_Z = 0            // depth world-space offset of the splat
+const YAW_RANGE = Math.PI    // max yaw rotation (radians) — Math.PI = ±180°
 const PITCH_RANGE = Math.PI / 2 // max pitch rotation (radians) — Math.PI/2 = ±90°
-const LERP_SPEED = 0.05       // damping factor per frame (0 = frozen, 1 = instant)
+const MAX_YAW = Math.PI / 3   // hard clamp on yaw output (radians) — Math.PI/6 = ±30°
+const MAX_PITCH = Math.PI / 3  // hard clamp on pitch output (radians) — Math.PI/8 = ±22.5°
+const LERP_SPEED = 0.05      // damping factor per frame (0 = frozen, 1 = instant)
 
 export default function SplatViewer({ mouseRef }: SplatViewerProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    // Tracks the neutral X position (0–1) that maps to zero yaw;
+    // updated on resize so it matches where the splat visually sits.
+    const neutralXRef = useRef(NEUTRAL_X)
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -32,42 +40,57 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
 
         let rafId: number
         let cancelled = false
-        let rendererRef: { setSize: (w: number, h: number) => void } | null = null
+        let threeRenderer: import("three").WebGLRenderer | null = null
+        let cameraRef: import("three").PerspectiveCamera | null = null
 
         const run = async () => {
-            const SPLAT = await import("gsplat")
+            const THREE = await import("three")
+            const { SplatMesh } = await import("@sparkjsdev/spark")
 
             if (cancelled) return
 
-            const scene = new SPLAT.Scene()
-            const camera = new SPLAT.Camera()
-            const renderer = new SPLAT.WebGLRenderer(canvas)
-            rendererRef = renderer
+            const scene = new THREE.Scene()
+            const w = canvas.clientWidth
+            const h = canvas.clientHeight
 
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight)
-
-            // Position camera so the splat is centered and fully visible
-            camera.position = new SPLAT.Vector3(CAMERA_X, CAMERA_Y, CAMERA_Z)
-
-            let splat: InstanceType<typeof SPLAT.Splat> | null = null
-
-            try {
-                // splat = await SPLAT.Loader.LoadAsync(
-                splat = await SPLAT.PLYLoader.LoadAsync(
-                    "/head.compressed.ply",
-                    scene,
-                    () => { },
-                )
-            } catch {
-                // Splat failed to load — canvas stays blank, no crash
-                return
+            const initAspect = w / h
+            const camera = new THREE.PerspectiveCamera(BASE_FOV, initAspect, 0.1, 1000)
+            camera.position.set(CAMERA_X, CAMERA_Y, CAMERA_Z)
+            // On mobile (< md) center on the splat; on desktop offset right
+            const applyLookAt = (cam: typeof camera, width: number) => {
+                if (width < MD_BREAKPOINT) {
+                    cam.lookAt(SPLAT_X, SPLAT_Y, SPLAT_Z)
+                    neutralXRef.current = 0.5
+                } else {
+                    cam.lookAt(0, SPLAT_Y, SPLAT_Z)
+                    neutralXRef.current = NEUTRAL_X
+                }
             }
+            applyLookAt(camera, w)
+            // Cover: on narrow aspect viewports widen FOV so the scene fills the canvas
+            if (initAspect < BASE_ASPECT) {
+                const baseHalfWidth = Math.tan((BASE_FOV / 2) * (Math.PI / 180)) * BASE_ASPECT
+                camera.fov = 2 * Math.atan(baseHalfWidth / initAspect) * (180 / Math.PI)
+                camera.updateProjectionMatrix()
+            }
+            cameraRef = camera
 
-            if (cancelled) return
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: false })
+            // false = don't overwrite CSS-driven size
+            renderer.setSize(w, h, false)
+            threeRenderer = renderer
 
-            // Scale up and shift right to mirror the old card position
-            splat.scale = new SPLAT.Vector3(SPLAT_SCALE, SPLAT_SCALE, SPLAT_SCALE)
-            splat.position = new SPLAT.Vector3(SPLAT_X, SPLAT_Y, SPLAT_Z)
+            // Pivot handles world position + mouse-driven rotation
+            const pivot = new THREE.Group()
+            pivot.position.set(SPLAT_X, SPLAT_Y, SPLAT_Z)
+            scene.add(pivot)
+
+            const splat = new SplatMesh({ url: "/head.sog" })
+            splat.scale.setScalar(SPLAT_SCALE)
+            // 3DGS PLY uses OpenCV convention (Y-down, Z-forward).
+            // THREE.js uses Y-up, Z-toward-viewer. A π rotation around X corrects this.
+            splat.rotation.x = Math.PI
+            pivot.add(splat)
 
             let currentYaw = 0
             let currentPitch = 0
@@ -76,18 +99,18 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
                 if (cancelled) return
 
                 const mouse = mouseRef.current ?? { x: 0.5, y: 0.5 }
-                const targetYaw = (NEUTRAL_X - mouse.x) * YAW_RANGE
-                const targetPitch = (mouse.y - NEUTRAL_Y) * PITCH_RANGE
+                const targetYaw = Math.max(-MAX_YAW, Math.min(MAX_YAW,
+                    (mouse.x - neutralXRef.current) * YAW_RANGE
+                ))
+                const targetPitch = Math.max(-MAX_PITCH, Math.min(MAX_PITCH,
+                    (mouse.y - NEUTRAL_Y) * PITCH_RANGE
+                ))
 
                 // Lerp toward target with damping
                 currentYaw += (targetYaw - currentYaw) * LERP_SPEED
                 currentPitch += (targetPitch - currentPitch) * LERP_SPEED
 
-                if (splat) {
-                    splat.rotation = SPLAT.Quaternion.FromEuler(
-                        new SPLAT.Vector3(currentPitch, currentYaw, 0),
-                    )
-                }
+                pivot.rotation.set(currentPitch, currentYaw, 0)
 
                 renderer.render(scene, camera)
                 rafId = requestAnimationFrame(frame)
@@ -100,8 +123,28 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
 
         const handleResize = () => {
             const c = canvasRef.current
-            if (!c || !rendererRef) return
-            rendererRef.setSize(c.clientWidth, c.clientHeight)
+            if (!c || !threeRenderer || !cameraRef) return
+            const w = c.clientWidth
+            const h = c.clientHeight
+            const aspect = w / h
+            threeRenderer.setSize(w, h, false)
+            cameraRef.aspect = aspect
+            // Cover: wider FOV on narrow-aspect viewports so the scene fills canvas width
+            if (aspect < BASE_ASPECT) {
+                const baseHalfWidth = Math.tan((BASE_FOV / 2) * (Math.PI / 180)) * BASE_ASPECT
+                cameraRef.fov = 2 * Math.atan(baseHalfWidth / aspect) * (180 / Math.PI)
+            } else {
+                cameraRef.fov = BASE_FOV
+            }
+            // Mobile vs desktop camera direction
+            if (w < MD_BREAKPOINT) {
+                cameraRef.lookAt(SPLAT_X, SPLAT_Y, SPLAT_Z)
+                neutralXRef.current = 0.5
+            } else {
+                cameraRef.lookAt(0, SPLAT_Y, SPLAT_Z)
+                neutralXRef.current = NEUTRAL_X
+            }
+            cameraRef.updateProjectionMatrix()
         }
         window.addEventListener("resize", handleResize)
 
@@ -109,6 +152,7 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
             cancelled = true
             cancelAnimationFrame(rafId)
             window.removeEventListener("resize", handleResize)
+            threeRenderer?.dispose()
         }
     }, [mouseRef])
 
