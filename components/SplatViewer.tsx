@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 
 interface SplatViewerProps {
     mouseRef: React.RefObject<{ x: number; y: number }>
+    isHoveringRef: React.RefObject<boolean>
 }
 
 // Normalized (0–1) position within the section that maps to zero rotation.
@@ -27,8 +28,12 @@ const PITCH_RANGE = Math.PI / 2 // max pitch rotation (radians) — Math.PI/2 = 
 const MAX_YAW = Math.PI / 3   // hard clamp on yaw output (radians) — Math.PI/6 = ±30°
 const MAX_PITCH = Math.PI / 3  // hard clamp on pitch output (radians) — Math.PI/8 = ±22.5°
 const LERP_SPEED = 0.05      // damping factor per frame (0 = frozen, 1 = instant)
+// Idle loop — circular pattern amplitude and speed
+const IDLE_YAW_AMP = MAX_YAW * 0.5       // half of max yaw
+const IDLE_PITCH_AMP = MAX_PITCH * 0.35   // gentler on pitch
+const IDLE_SPEED = 0.01                  // radians per frame (~60fps → ~10s per orbit)
 
-export default function SplatViewer({ mouseRef }: SplatViewerProps) {
+export default function SplatViewer({ mouseRef, isHoveringRef }: SplatViewerProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     // Tracks the neutral X position (0–1) that maps to zero yaw;
     // updated on resize so it matches where the splat visually sits.
@@ -97,17 +102,28 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
 
             let currentYaw = 0
             let currentPitch = 0
+            let idleAngle = 0
 
             const frame = () => {
                 if (cancelled) return
 
-                const mouse = mouseRef.current ?? { x: 0.5, y: 0.5 }
-                const targetYaw = Math.max(-MAX_YAW, Math.min(MAX_YAW,
-                    (mouse.x - neutralXRef.current) * YAW_RANGE
-                ))
-                const targetPitch = Math.max(-MAX_PITCH, Math.min(MAX_PITCH,
-                    (mouse.y - NEUTRAL_Y) * PITCH_RANGE
-                ))
+                const hovering = isHoveringRef.current ?? false
+                let targetYaw: number
+                let targetPitch: number
+
+                if (hovering) {
+                    const mouse = mouseRef.current ?? { x: 0.5, y: 0.5 }
+                    targetYaw = Math.max(-MAX_YAW, Math.min(MAX_YAW,
+                        (mouse.x - neutralXRef.current) * YAW_RANGE
+                    ))
+                    targetPitch = Math.max(-MAX_PITCH, Math.min(MAX_PITCH,
+                        (mouse.y - NEUTRAL_Y) * PITCH_RANGE
+                    ))
+                } else {
+                    idleAngle += IDLE_SPEED
+                    targetYaw = Math.cos(idleAngle) * IDLE_YAW_AMP
+                    targetPitch = Math.sin(idleAngle) * IDLE_PITCH_AMP
+                }
 
                 // Lerp toward target with damping
                 currentYaw += (targetYaw - currentYaw) * LERP_SPEED
@@ -158,7 +174,7 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
             window.removeEventListener("resize", handleResize)
             threeRenderer?.dispose()
         }
-    }, [mouseRef])
+    }, [mouseRef, isHoveringRef])
 
     return (
         <canvas
