@@ -67,8 +67,10 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
                 }
             }
             applyLookAt(camera, w)
-            // Cover: on narrow aspect viewports widen FOV so the scene fills the canvas
-            if (initAspect < BASE_ASPECT) {
+            // Cover: on narrow aspect viewports widen FOV so the scene fills the canvas.
+            // Skip on mobile — the canvas is a standalone block, not a background fill;
+            // the cover formula would push FOV past 80° and make the splat look tiny.
+            if (w >= MD_BREAKPOINT && initAspect < BASE_ASPECT) {
                 const baseHalfWidth = Math.tan((BASE_FOV / 2) * (Math.PI / 180)) * BASE_ASPECT
                 camera.fov = 2 * Math.atan(baseHalfWidth / initAspect) * (180 / Math.PI)
                 camera.updateProjectionMatrix()
@@ -76,6 +78,7 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
             cameraRef = camera
 
             const renderer = new THREE.WebGLRenderer({ canvas, antialias: false })
+            renderer.setPixelRatio(window.devicePixelRatio)
             // false = don't overwrite CSS-driven size
             renderer.setSize(w, h, false)
             threeRenderer = renderer
@@ -129,8 +132,9 @@ export default function SplatViewer({ mouseRef }: SplatViewerProps) {
             const aspect = w / h
             threeRenderer.setSize(w, h, false)
             cameraRef.aspect = aspect
-            // Cover: wider FOV on narrow-aspect viewports so the scene fills canvas width
-            if (aspect < BASE_ASPECT) {
+            // Cover: wider FOV on narrow-aspect viewports so the scene fills canvas width.
+            // Skip on mobile — same reason as above.
+            if (w >= MD_BREAKPOINT && aspect < BASE_ASPECT) {
                 const baseHalfWidth = Math.tan((BASE_FOV / 2) * (Math.PI / 180)) * BASE_ASPECT
                 cameraRef.fov = 2 * Math.atan(baseHalfWidth / aspect) * (180 / Math.PI)
             } else {

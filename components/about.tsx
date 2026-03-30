@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import dynamic from "next/dynamic"
 import { motion, useInView } from "framer-motion"
 import { SquareStackIcon as StackIcon, HardHatIcon as HatIcon, UsersIcon as PeopleIcon } from "lucide-react"
@@ -32,6 +32,42 @@ export default function About() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
   const sectionMouseRef = useRef({ x: 0.5, y: 0.5 })
+
+  useEffect(() => {
+    if (!globalThis.matchMedia("(max-width: 767px)").matches) return
+
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      const gamma = e.gamma ?? 0   // left–right tilt: -90 to 90
+      const beta = e.beta ?? 90    // front–back tilt, ~90 when upright
+      sectionMouseRef.current = {
+        x: Math.max(0, Math.min(1, (gamma + 45) / 90)),
+        y: Math.max(0, Math.min(1, (beta - 45) / 90)),
+      }
+    }
+
+    const addListener = () =>
+      globalThis.addEventListener("deviceorientation", handleOrientation)
+
+    // iOS 13+ requires an explicit permission request from a user gesture
+    const DoE = DeviceOrientationEvent as unknown as {
+      requestPermission?: () => Promise<PermissionState>
+    }
+    if (typeof DoE.requestPermission === "function") {
+      const onTouch = () => {
+        DoE.requestPermission!()
+          .then((perm) => { if (perm === "granted") addListener() })
+          .catch(() => {})
+      }
+      globalThis.addEventListener("touchstart", onTouch, { once: true })
+      return () => {
+        globalThis.removeEventListener("touchstart", onTouch)
+        globalThis.removeEventListener("deviceorientation", handleOrientation)
+      }
+    }
+
+    addListener()
+    return () => globalThis.removeEventListener("deviceorientation", handleOrientation)
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -71,7 +107,24 @@ export default function About() {
       }}
     >
       {/* Mobile: block above card; Desktop (lg+): absolute full-section background */}
-      <div className="relative h-[600px] w-full md:absolute md:inset-0 md:h-auto">
+      <div
+        className="relative h-[600px] w-full md:absolute md:inset-0 md:h-auto"
+        onMouseMove={(e) => {
+          // Mobile: splat div is in-flow and receives events directly.
+          // Compute position relative to the render area and stop bubbling to section.
+          // Desktop: this div is behind z-10 and never receives events, so this is a no-op.
+          const rect = e.currentTarget.getBoundingClientRect()
+          sectionMouseRef.current = {
+            x: (e.clientX - rect.left) / rect.width,
+            y: (e.clientY - rect.top) / rect.height,
+          }
+          e.stopPropagation()
+        }}
+        onMouseLeave={(e) => {
+          sectionMouseRef.current = { x: 0.5, y: 0.5 }
+          e.stopPropagation()
+        }}
+      >
         <SplatViewer mouseRef={sectionMouseRef} />
       </div>
 
