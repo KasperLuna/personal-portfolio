@@ -34,6 +34,7 @@
     "contentful": "^11.7.17",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
+    "gsplat": "^1.2.9",
     "lucide-react": "^0.454.0",
     "next": "16.0.10",
     "next-themes": "latest",
