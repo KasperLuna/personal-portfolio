@@ -78,14 +78,14 @@ export default function Hero() {
           {/* BannerHero 3D wrapper */}
           <div
             className={cn("hidden min-w-0 w-full h-full flex-shrink-0 stroke-black xs:hidden sm:flex lg:flex", { "stroke-white": isDark })}
-            style={{ perspective: "800px", transformStyle: "preserve-3d", transform: bannerTransform, transition: "transform 0.2s cubic-bezier(.25,.8,.25,1)" }}
+            style={{ perspective: "800px", transformStyle: "preserve-3d", transform: bannerTransform, transition: "transform 0.2s cubic-bezier(.25,.8,.25,1)", willChange: "transform", backfaceVisibility: "hidden", filter: "blur(0)" }}
           >
             <BannerHero />
           </div>
           {/* StackHero 3D wrapper */}
           <div
             className={cn("stroke-black min-w-0 w-full flex-shrink-0 flex sm:hidden lg:hidden", { "stroke-white": isDark })}
-            style={{ perspective: "800px", transformStyle: "preserve-3d", transform: stackTransform, transition: "transform 0.2s cubic-bezier(.25,.8,.25,1)" }}
+            style={{ perspective: "800px", transformStyle: "preserve-3d", transform: stackTransform, transition: "transform 0.2s cubic-bezier(.25,.8,.25,1)", willChange: "transform", backfaceVisibility: "hidden", filter: "blur(0)" }}
           >
             <StackHero />
           </div>

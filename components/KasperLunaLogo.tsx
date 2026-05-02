@@ -14,6 +14,7 @@ export function BannerHero(): JSX.Element {
         "fill-white": isDark,
       })}
       viewBox="0 0 1144 210.02"
+      shapeRendering="geometricPrecision"
     >
       <path
         className={cn({
@@ -145,7 +146,9 @@ export function StackHero() {
         "fill-black": !isDark,
         "fill-white": isDark,
       })}
-      viewBox="0 0 698 381">
+      viewBox="0 0 698 381"
+      shapeRendering="geometricPrecision"
+    >
       <path
         className={cn({
           lettersLight: !isDark,
