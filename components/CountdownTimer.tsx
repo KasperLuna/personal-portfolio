@@ -1,40 +1,37 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 export default function CountdownTimer({ targetDate }: { targetDate: Date }) {
-    const [timeLeft, setTimeLeft] = useState({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-    })
+    const calculateTimeLeft = useCallback(() => {
+        const difference = targetDate.getTime() - Date.now()
 
-    const [isExpired, setIsExpired] = useState(false)
-
-    useEffect(() => {
-        const calculateTimeLeft = () => {
-            const difference = targetDate.getTime() - Date.now()
-
-            if (difference <= 0) {
-                setIsExpired(true)
-                return { days: 0, hours: 0, minutes: 0, seconds: 0 }
-            }
-
-            return {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60),
-            }
+        if (difference <= 0) {
+            return { days: 0, hours: 0, minutes: 0, seconds: 0 }
         }
 
-        setTimeLeft(calculateTimeLeft())
+        return {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60),
+        }
+    }, [targetDate])
 
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft)
+    const [isExpired, setIsExpired] = useState(
+        () => targetDate.getTime() <= Date.now()
+    )
+
+    useEffect(() => {
         const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft())
+            const next = calculateTimeLeft()
+            if (next.days === 0 && next.hours === 0 && next.minutes === 0 && next.seconds === 0) {
+                setIsExpired(true)
+            }
+            setTimeLeft(next)
         }, 1000)
 
         return () => clearInterval(timer)
-    }, [targetDate])
+    }, [calculateTimeLeft])
 
     const timeBlocks = [
         { label: "Days", value: timeLeft.days },

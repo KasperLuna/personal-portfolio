@@ -1,6 +1,6 @@
 import EventForm from "@/components/EventForm";
 import { type Event, getEventBySlug } from "@/lib/contentful";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;

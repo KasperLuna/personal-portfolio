@@ -47,7 +47,7 @@ export const POST = async (req: NextRequest) => {
     text: `Name: ${body.name}\nEmail: ${body.email}\nMessage: ${body.message}`,
     html: `<p>Name: ${body.name}</p><p>Email: ${body.email}</p><p>Message: ${body.message}</p>`,
   };
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   const response: SentMessageType = await transporter.sendMail(mailContents);
 
   if (response.accepted.length > 0) {

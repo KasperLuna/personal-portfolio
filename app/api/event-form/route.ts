@@ -1,6 +1,6 @@
 import nodemailer, { type Transporter, type SendMailOptions } from "nodemailer";
 import { NextResponse } from "next/server";
-import { SentMessageType } from "@/lib/constants";
+import { type SentMessageType } from "@/lib/constants";
 
 const transporter: Transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
